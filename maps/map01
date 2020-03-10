@@ -1,12 +1,12 @@
 5
 # rooms
+##end
+nimii 700 500
 ##start
 on 100 500
 khyl 400 500
 salee 400 800
-##end
-nimii 700 500
 # links
 on-khyl
-on-nimii
+khyl-nimii
 on-salee

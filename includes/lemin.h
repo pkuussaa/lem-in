@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/09 18:39:01 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/10 18:36:46 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 
 typedef struct s_room	t_room;
 typedef struct s_link	t_link;
+
+typedef struct			s_queue
+{
+	char				**items;
+	int					front;
+	int					rear;
+}						t_queue;
 
 struct					s_room
 {
@@ -36,6 +43,8 @@ typedef struct			s_lemin
 {
 	int					ants;
 	int					rooms;
+	char				*moves;
+	int					amount;
 	char				**paths;
 	char				*line;
 	char				*start;
@@ -43,9 +52,12 @@ typedef struct			s_lemin
 }						t_lemin;
 
 void					number_of_ants(t_lemin *lemin);
+void					save_path(t_lemin *lemin, char *name, char *link_name);
+void					find_paths(t_lemin *lemin, t_room *room);
 t_room					*parse_rooms(t_lemin *lemin, t_room *room);
 t_room					*parse_links(t_lemin *lemin, t_room *room);
 t_room					*get_first_links(t_lemin *lemin, t_room *room);
+t_room					*find_room(t_room *room, char *name);
 t_room					*link_rooms(t_room *room, char *src, char *dst);
 void					exit_error();
 
