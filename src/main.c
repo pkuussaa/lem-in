@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/10 18:36:53 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/11 20:08:14 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,30 @@ void	exit_error()
 	exit(EXIT_FAILURE);
 }
 
+void	print_results(char **arr)
+{
+	int		y;
+
+	y = 0;
+	while (arr[y])
+	{
+		ft_printf("result: %s\n", arr[y]);
+		y++;
+	}
+}
+
 void	initialize(t_lemin *lemin)
 {
 	lemin->ants = 0;
 	lemin->rooms = 0;
 	lemin->amount = 0;
+	lemin->length = 0;
 	lemin->moves = NULL;
 	lemin->start = NULL;
 	lemin->end = NULL;
 	lemin->paths = NULL;
 	lemin->line = NULL;
+	lemin->result_paths = NULL;
 }
 
 int		main(void)
@@ -42,7 +56,7 @@ int		main(void)
 	number_of_ants(lemin);
 	rooms = parse_rooms(lemin, rooms);
 	rooms = parse_links(lemin, rooms);
-	ft_printf("%d, %d, %s, %s\n", lemin->ants, lemin->rooms, rooms->name, rooms->next->name);
 	find_paths(lemin, rooms);
+	print_results(lemin->result_paths);
 	return (0);
 }

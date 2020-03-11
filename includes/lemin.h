@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/10 18:36:46 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/11 20:04:32 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,18 @@ typedef struct			s_lemin
 {
 	int					ants;
 	int					rooms;
+	int					length;
 	char				*moves;
 	int					amount;
+	char				**result_paths;
 	char				**paths;
 	char				*line;
 	char				*start;
 	char				*end;
 }						t_lemin;
 
+int						save_and_clear(t_lemin *lemin, t_room *room, int i);
+void					print_visited(t_lemin *lemin, t_room *room, t_room *tmp, t_link *links);
 void					number_of_ants(t_lemin *lemin);
 void					save_path(t_lemin *lemin, char *name, char *link_name);
 void					find_paths(t_lemin *lemin, t_room *room);
