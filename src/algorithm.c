@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:35:10 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/11 20:08:12 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/12 14:29:25 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,6 @@ void	find_paths(t_lemin *lemin, t_room *room)
 	while (!isEmpty(queue))
 	{
 		currentnode = dequeue(queue);
-		ft_printf("currentnode: %s\n", currentnode);
 		if (ft_strcmp(currentnode, lemin->end) == 0)
 			break ;
 		tmp = find_room(room, currentnode);
@@ -200,7 +199,6 @@ void	find_paths(t_lemin *lemin, t_room *room)
 				if (lemin->length == 1)
 					i = current_index(lemin, currentnode);
 				lemin->paths[i] = init_str(lemin, lemin->paths[i], links->room_link->name);
-				ft_printf("%s, %i\n", lemin->paths[i], i);
 				links->room_link->visited = 1;
 				enqueue(queue, links->room_link->name);
 			}

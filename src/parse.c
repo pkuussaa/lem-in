@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:24:45 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/11 20:01:03 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/12 16:03:48 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_room	*add_room(t_lemin *lemin, t_room *rooms, char *line)
 	lemin->rooms++;
 	next->next = NULL;
 	next->links = NULL;
+	next->count = 0;
 	next->visited = 0;
 	if (!rooms)
 		rooms = next;

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/11 20:04:32 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/12 16:03:35 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct			s_queue
 struct					s_room
 {
 	char				*name;
+	int					count;
 	int					visited;
 	t_link				*links;
 	t_room				*next;
@@ -54,6 +55,7 @@ typedef struct			s_lemin
 }						t_lemin;
 
 int						save_and_clear(t_lemin *lemin, t_room *room, int i);
+void					optimizate_paths_to_use(t_lemin *lemin, t_room *room);
 void					print_visited(t_lemin *lemin, t_room *room, t_room *tmp, t_link *links);
 void					number_of_ants(t_lemin *lemin);
 void					save_path(t_lemin *lemin, char *name, char *link_name);

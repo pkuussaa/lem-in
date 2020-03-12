@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 17:20:02 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/11 20:10:58 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:00:52 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ int		search_name(t_lemin *lemin, char **arr, char *name)
 	y = 0;
 	while (arr[y])
 	{
-		if (ft_strcmp(name, lemin->start) == 0 ||
-				ft_strcmp(name, lemin->end) == 0)
-			return (1);
-		if (ft_strcmp(arr[y], name) == 0)
-			return (0);
+		if (arr[y][0] != '\0')
+		{
+			if (ft_strcmp(name, lemin->start) == 0 ||
+					ft_strcmp(name, lemin->end) == 0)
+				return (1);
+			if (ft_strcmp(arr[y], name) == 0)
+				return (0);
+		}
 		y++;
 	}
 	return (1);
@@ -34,8 +37,12 @@ int		add_to_result_paths(t_lemin *lemin, char *str)
 	int		y;
 
 	y = 0;
-	while (lemin->result_paths[y][0] != '\0')
+	while (lemin->result_paths[y])
+	{
+		if (lemin->result_paths[y][0] == '\0')
+			break ;
 		y++;
+	}
 	lemin->result_paths[y] = ft_strdup(str);
 	return (1);
 }
@@ -52,25 +59,77 @@ int		check_end(t_lemin *lemin, char *str)
 	return (1);
 }
 
+char	*combine_paths(t_lemin *lemin)
+{
+	char	*str;
+	int		y;
+	int		count;
+	int		length;
+
+	count = 0;
+	y = 0;
+	length = 0;
+	while (lemin->result_paths[count])
+	{
+		if (lemin->result_paths[count][0] == '\0')
+			break ;
+		count++;
+	}
+	while (y < count)
+	{
+		length += ft_strlen(lemin->result_paths[y]) - 1;
+		y++;
+	}
+	if (!(str = (char*)malloc(sizeof(char) * length + count + 1)))
+		exit_error();
+	y = 0;
+	while (y < count)
+	{
+		ft_strcat(str, lemin->result_paths[y]);
+		if (y + 1 != count)
+			ft_strcat(str, "-");
+		y++;
+	}
+	return (str);
+}
+
+int		check_if_possible_paths(t_lemin *lemin, t_room *room)
+{
+	t_room	*tmp;
+	t_link	*links;
+
+	tmp = find_room(room, lemin->start);
+	links = tmp->links;
+	while (links)
+	{
+		if (links->room_link->visited == 0)
+			return (1);
+		links = links->next;
+	}
+	return (0);
+}
+
 int		save_and_clear(t_lemin *lemin, t_room *room, int i)
 {
 	t_room	*tmp;
 	char	**arr;
+	char	*str;
 
 	lemin->moves = ft_strdup(lemin->paths[i]);
-	ft_printf("res: %s\n", lemin->moves);
 	free(lemin->paths);
 	tmp = room;
-	arr = ft_strsplit(lemin->moves, '-');
+	if (check_end(lemin, lemin->moves) == 1)
+		add_to_result_paths(lemin, lemin->moves);
+	str = combine_paths(lemin);
+	arr = ft_strsplit(str, '-');
 	while (tmp)
 	{
-		if (search_name(lemin, arr, tmp->name) == 1) // PITAA ETSIA KOKO RESULT LISTASTA, TASSA ETSITAAN VIN VIIMEISIMMASTA!!
+		if (search_name(lemin, arr, tmp->name) == 1)
 			tmp->visited = 0;
+
 		tmp = tmp->next;
 	}
-	if (check_end(lemin, lemin->moves) == 1)
-		return (add_to_result_paths(lemin, lemin->moves));
-	return (0);
+	return (check_end(lemin, lemin->moves));
 }
 
 /*int		char_count_until(char *str)

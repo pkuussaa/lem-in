@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/11 20:08:14 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/12 16:00:28 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	print_results(char **arr)
 	y = 0;
 	while (arr[y])
 	{
+		if (arr[y][0] == '\0')
+			break ;
 		ft_printf("result: %s\n", arr[y]);
 		y++;
 	}
@@ -58,5 +60,6 @@ int		main(void)
 	rooms = parse_links(lemin, rooms);
 	find_paths(lemin, rooms);
 	print_results(lemin->result_paths);
+	optimizate_paths_to_use(lemin, rooms);
 	return (0);
 }
