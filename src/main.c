@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/12 16:00:28 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/16 13:04:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int		main(void)
 	find_paths(lemin, rooms);
 	print_results(lemin->result_paths);
 	optimizate_paths_to_use(lemin, rooms);
+	init_result(lemin, rooms);
 	return (0);
 }
