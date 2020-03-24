@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:35:10 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/12 14:29:25 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/17 14:02:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int		isEmpty(t_queue *queue)
 {
 	if(queue->rear == -1)
 		return 1;
-	else
-		return 0;
+	return 0;
 }
 
 void	enqueue(t_queue *queue, char *value)
@@ -32,19 +31,13 @@ char	*dequeue(t_queue *q)
 {
 	char *item;
 	if(isEmpty(q))
-	{
-		//ft_printf("Queue is empty");
 		item = "-1";
-	}
 	else
 	{
 		item = q->items[q->front];
 		q->front++;
 		if(q->front > q->rear)
-		{
-			//ft_printf("Resetting queue\n");
 			q->front = q->rear = -1;
-		}
 	}
 	return item;
 }
@@ -172,12 +165,32 @@ int		current_index(t_lemin *lemin, char *str)
 	return (get_next_slot(lemin, str));
 }
 
+t_link	*init_path(t_lemin **lemin, t_link *links, t_queue **queue, int *i)
+{
+	while (links)
+	{
+		if (links->room_link->visited == 0)
+		{
+			if ((*lemin)->length == 1)
+				*i = current_index(*lemin, (*lemin)->currentnode);
+			(*lemin)->paths[*i] = init_str(*lemin, (*lemin)->paths[*i], links->room_link->name);
+			links->room_link->visited = 1;
+			enqueue(*queue, links->room_link->name);
+		}
+		if (!links->next)
+			break ;
+		if ((*lemin)->length == 0)
+			*i++;
+		links = links->next;
+	}
+	return (links);
+}
+
 void	find_paths(t_lemin *lemin, t_room *room)
 {
 	t_queue		*queue;
 	t_room		*tmp;
 	t_link		*links;
-	char		*currentnode;
 	static int	i;
 
 	queue = init_queue(queue, lemin);
@@ -187,17 +200,18 @@ void	find_paths(t_lemin *lemin, t_room *room)
 	enqueue(queue, tmp->name);
 	while (!isEmpty(queue))
 	{
-		currentnode = dequeue(queue);
-		if (ft_strcmp(currentnode, lemin->end) == 0)
-			break ;
-		tmp = find_room(room, currentnode);
+		lemin->currentnode = dequeue(queue);
+		//if (ft_strcmp(currentnode, lemin->end) == 0)
+		//	break ;
+		tmp = find_room(room, lemin->currentnode);
 		links = tmp->links;
+		//links = init_path(&lemin, links, &queue, &i);
 		while (links)
 		{
 			if (links->room_link->visited == 0)
 			{
 				if (lemin->length == 1)
-					i = current_index(lemin, currentnode);
+					i = current_index(lemin, lemin->currentnode);
 				lemin->paths[i] = init_str(lemin, lemin->paths[i], links->room_link->name);
 				links->room_link->visited = 1;
 				enqueue(queue, links->room_link->name);

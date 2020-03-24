@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 15:17:55 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/13 16:44:40 by marvin           ###   ########.fr       */
+/*   Updated: 2020/03/13 17:02:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,7 @@ void	optimizate_paths_to_use(t_lemin *lemin, t_room *room)
 			//ft_printf("%s %d\n", moves[i], i);
 		}
 	}
-	print_moves(moves, 0);
+	free(lemin->paths);
+	lemin->paths = moves;
+	print_moves(lemin->paths, 0);
 }

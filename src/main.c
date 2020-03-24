@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/16 13:04:19 by marvin           ###   ########.fr       */
+/*   Updated: 2020/03/17 13:51:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	initialize(t_lemin *lemin)
 	lemin->rooms = 0;
 	lemin->amount = 0;
 	lemin->length = 0;
+	lemin->currentnode = NULL;
 	lemin->moves = NULL;
 	lemin->start = NULL;
 	lemin->end = NULL;

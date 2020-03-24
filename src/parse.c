@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:24:45 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/12 16:03:48 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/17 13:44:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	number_of_ants(t_lemin *lemin)
 t_room	*add_room(t_lemin *lemin, t_room *rooms, char *line)
 {
 	t_room	*next;
-	t_room *tmp;
+	t_room	*tmp;
 
 	if (!(next = (t_room*)malloc(sizeof(t_room))))
 		exit_error();
@@ -69,6 +69,8 @@ t_room	*parse_rooms(t_lemin *lemin, t_room *room)
 			start_end = 1;
 		if (ft_strcmp(lemin->line, "##end") == 0)
 			start_end = 2;
+		/*start_end = ft_strcmp(lemin->line, "##start") == 0 ? 1 : 0;
+		start_end = ft_strcmp(lemin->line, "##end") == 0 ? 2 : 0;*/
 		if (lemin->line[0] != '#')
 		{
 			room = add_room(lemin, room, lemin->line);
