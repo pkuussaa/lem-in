@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pyrykuussaari <pyrykuussaari@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:24:45 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/17 13:44:38 by marvin           ###   ########.fr       */
+/*   Updated: 2020/03/25 13:37:08 by pyrykuussaa      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	number_of_ants(t_lemin *lemin)
 	i = 0;
 	if (get_next_line(0, &line) < 1)
 		exit_error();
+	ft_printf("%s\n", line);
 	while (line[i])
 	{
 		if (ft_isdigit(line[i]) == 0)
@@ -63,6 +64,7 @@ t_room	*parse_rooms(t_lemin *lemin, t_room *room)
 	start_end = 0;
 	while (get_next_line(0, &lemin->line) > 0)
 	{
+		ft_printf("%s\n", lemin->line);
 		if (!ft_strchr(lemin->line, ' ') && lemin->line[0] != '#')
 			break ;
 		if (ft_strcmp(lemin->line, "##start") == 0)
@@ -109,6 +111,7 @@ t_room	*parse_links(t_lemin *lemin, t_room *room)
 		room = get_first_links(lemin, room);
 	while (get_next_line(0, &lemin->line) > 0)
 	{
+		ft_printf("%s\n", lemin->line);
 		if (!ft_strchr(lemin->line, '-') && lemin->line[0] != '#')
 			break ;
 		if (lemin->line[0] != '#')

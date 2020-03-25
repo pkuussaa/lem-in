@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pyrykuussaari <pyrykuussaari@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/12 16:03:35 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/03/25 12:45:25 by pyrykuussaa      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct			s_lemin
 	int					length;
 	char				*moves;
 	int					amount;
+	char				*currentnode;
 	char				**result_paths;
 	char				**paths;
 	char				*line;
@@ -55,6 +56,7 @@ typedef struct			s_lemin
 }						t_lemin;
 
 int						save_and_clear(t_lemin *lemin, t_room *room, int i);
+void					init_result(t_lemin *lemin, t_room *room);
 void					optimizate_paths_to_use(t_lemin *lemin, t_room *room);
 void					print_visited(t_lemin *lemin, t_room *room, t_room *tmp, t_link *links);
 void					number_of_ants(t_lemin *lemin);

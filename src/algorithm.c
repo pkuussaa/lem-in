@@ -180,7 +180,7 @@ t_link	*init_path(t_lemin **lemin, t_link *links, t_queue **queue, int *i)
 		if (!links->next)
 			break ;
 		if ((*lemin)->length == 0)
-			*i++;
+			*i += 1;
 		links = links->next;
 	}
 	return (links);
