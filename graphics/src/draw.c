@@ -6,11 +6,42 @@
 /*   By: pyrykuussaari <pyrykuussaari@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 13:01:20 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/03/25 14:44:23 by pyrykuussaa      ###   ########.fr       */
+/*   Updated: 2020/03/30 13:22:07 by pyrykuussaa      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/graphics.h"
+
+void	draw_box(t_graphics *info, t_room *room)
+{
+	int		*image;
+	int		i;
+	int		counter;
+
+	ft_printf("%d %d\n", room->x, room->y);
+	i = room->x + (room->y * 1500);
+	counter = 0;
+	image = (int*)(info->data_addr);
+	while (counter < 70)
+	{
+		image[i] = 0XFFFFFF;
+		image[i + (1500 * 40)] = 0XFFFFFF;
+		counter++;
+		i++;
+	}
+	counter = 0;
+	while (counter < 40)
+	{
+		image[i] = 0XFFFFFF;
+		image[i - 70] = 0XFFFFFF;
+		counter++;
+		i += 1500;
+	}
+	if (room->next)
+		draw_box(info, room->next);
+	else
+		mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
+}
 
 void	draw_background(t_graphics *info)
 {
@@ -72,5 +103,4 @@ void	draw_background(t_graphics *info)
 		}
 		i++;
 	}
-	mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
 }

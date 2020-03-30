@@ -6,7 +6,7 @@
 /*   By: pyrykuussaari <pyrykuussaari@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 12:41:13 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/03/25 15:15:13 by pyrykuussaa      ###   ########.fr       */
+/*   Updated: 2020/03/30 13:03:21 by pyrykuussaa      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		main()
 	draw_background(info);
 	number_of_ants(info);
 	room = parse_rooms(info, room);
+	draw_box(info, room);
 	mlx_loop(info->mlx);
 	return (0);
 }
