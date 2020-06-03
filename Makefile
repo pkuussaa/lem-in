@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pyrykuussaari <pyrykuussaari@student.42    +#+  +:+       +#+         #
+#    By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 14:34:26 by pkuussaa          #+#    #+#              #
-#    Updated: 2020/03/25 13:33:47 by pyrykuussaa      ###   ########.fr        #
+#    Updated: 2020/06/03 10:49:41 by pkuussaa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,4 +44,4 @@ re: fclean all
 run:
 	rm -f info_file
 	touch info_file
-	./lem-in < maps/map02 > info_file | graphics/./graphics < info_file
+	./lem-in < maps/map07 > info_file | graphics/./graphics < info_file

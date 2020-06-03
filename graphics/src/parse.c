@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyrykuussaari <pyrykuussaari@student.42    +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 14:58:04 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/03/25 15:23:41 by pyrykuussaa      ###   ########.fr       */
+/*   Updated: 2020/06/03 16:25:32 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	get_xy(t_room *room, char *src)
 	tmp = ft_strsplit(src, ' ');
 	room->x = ft_atoi(tmp[0]);
 	room->y = ft_atoi(tmp[1]);
+	room->result = 0;
 }
 
 t_room	*add_room(t_graphics *info, t_room *rooms)
@@ -67,7 +68,7 @@ t_room	*add_room(t_graphics *info, t_room *rooms)
 
 t_room	*parse_rooms(t_graphics *info, t_room *room)
 {
-int		start_end;
+	int		start_end;
 
 	start_end = 0;
 	while (get_next_line(0, &info->line) > 0)
@@ -90,4 +91,25 @@ int		start_end;
 		ft_strdel(&info->line);
 	}
 	return (room);
+}
+
+
+void	result_rooms(t_graphics *info, t_room *room)
+{
+	char	**tmp;
+	int		i;
+
+	while (get_next_line(0, &info->line) > 0)
+	{
+		if (ft_strncmp(info->line, "result:", 7) == 0)
+		{
+			tmp = ft_strsplit(ft_strsub(info->line, 8, ft_strlen(info->line) - 8), '-');
+			i = 0;
+			while (tmp[i])
+			{
+				find_room(room, tmp[i])->result = 1;
+				i++;
+			}
+		}
+	}
 }

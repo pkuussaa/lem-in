@@ -3,16 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyrykuussaari <pyrykuussaari@student.42    +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 13:01:20 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/03/30 13:22:07 by pyrykuussaa      ###   ########.fr       */
+/*   Updated: 2020/06/03 16:53:53 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/graphics.h"
 
-void	draw_box(t_graphics *info, t_room *room)
+void	display_circle(t_graphics *info, t_room *room, int x, int y)
+{
+	int		*image;
+	int color;
+	int offset;
+
+	image = (int*)(info->data_addr);
+	color = room->result == 1 ? 0X23CD21 : 0XFFFFFF;
+	color = ft_strcmp(room->name, info->start) == 0 ? 0XCD1FBA: color;
+	color = ft_strcmp(room->name, info->end) == 0 ? 0XC4CC19: color;
+	offset = room->x + (room->y * 1500);
+	image[(offset - (y * 1500)) + x] = color;
+	image[(offset - (y * 1500)) - x] = color;
+	image[(offset + (y * 1500)) + x] = color;
+	image[(offset + (y * 1500)) - x] = color;
+	image[(offset - (x * 1500)) + y] = color;
+	image[(offset - (x * 1500)) - y] = color;
+	image[(offset + (x * 1500)) + y] = color;
+	image[(offset + (x * 1500)) - y] = color;
+}
+
+void	circle_drawing_algorithm(int radius, t_graphics *info, t_room *room, int check)
+{
+	int		x;
+	int		y;
+	int		dp;
+
+	x = 0;
+	y = radius;
+	dp = 3 - 2 * radius;
+	while (y >= x)
+	{
+		x++;
+		if (dp > 0)
+		{
+			y--;
+			dp = dp + 4 * (x - y) + 10;
+		}
+		else
+			dp = dp + 4 * x + 6;
+		display_circle(info, room, x, y);
+		if (check == 0)
+		{
+			display_circle(info, room, x, y - 1);
+			display_circle(info, room, x, y - 2);
+		}
+	}
+}
+
+void	draw_circles(t_graphics *info, t_room *room)
+{
+	int		radius;
+
+	radius = 20;
+	display_circle(info, room, 0, radius);
+	if (ft_strcmp(room->name, info->start) == 0 || ft_strcmp(room->name, info->end) == 0)
+		while (radius > 0)
+		{
+			display_circle(info, room, 0, radius);
+			circle_drawing_algorithm(radius, info, room, 1);
+			radius--;
+		}
+	else
+		circle_drawing_algorithm(radius, info, room, 0);
+	if (room->next)
+		draw_circles(info, room->next);
+	else
+		mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
+}
+
+/*void	draw_box(t_graphics *info, t_room *room)
 {
 	int		*image;
 	int		i;
@@ -41,7 +111,7 @@ void	draw_box(t_graphics *info, t_room *room)
 		draw_box(info, room->next);
 	else
 		mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
-}
+}*/
 
 void	draw_background(t_graphics *info)
 {

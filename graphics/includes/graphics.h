@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyrykuussaari <pyrykuussaari@student.42    +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 12:44:35 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/03/30 13:03:05 by pyrykuussaa      ###   ########.fr       */
+/*   Updated: 2020/06/03 16:24:58 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ struct					s_room
 {
 	int					x;
 	int					y;
+	int					result;
 	char				*name;
 	t_room				*next;
 };
 
 typedef struct			s_graphics
 {
+	t_room				*room;
 	int					ants;
 	int					rooms;
 	char				*line;
@@ -43,10 +45,13 @@ typedef struct			s_graphics
 	int					color;
 }						t_graphics;
 
-void					draw_box(t_graphics *info, t_room *room);
+void					result_rooms(t_graphics *info, t_room *room);
+void					scan_paths(t_graphics *info, t_room *room, t_room *tmp, int check, int index);
+void					draw_circles(t_graphics *info, t_room *room);
 void					number_of_ants(t_graphics *info);
 void					draw_background(t_graphics *info);
 t_room					*parse_rooms(t_graphics *info, t_room *room);
+t_room					*find_room(t_room *room, char *name);
 
 
 #endif
