@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 14:58:04 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/03 16:25:32 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/05 16:15:37 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	result_rooms(t_graphics *info, t_room *room)
 
 	while (get_next_line(0, &info->line) > 0)
 	{
+		if (info->line[0] == '\0')
+			break ;
 		if (ft_strncmp(info->line, "result:", 7) == 0)
 		{
 			tmp = ft_strsplit(ft_strsub(info->line, 8, ft_strlen(info->line) - 8), '-');
@@ -112,4 +114,76 @@ void	result_rooms(t_graphics *info, t_room *room)
 			}
 		}
 	}
+}
+
+void	parse_links(t_graphics *info, t_room *room)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	if (info->line)
+		tmp2 = ft_strdup(info->line);
+	tmp = ft_strjoin(tmp2, " ");
+	ft_strdel(&tmp2);
+	while (get_next_line(0, &info->line) > 0)
+	{
+		if (info->line[0] == '\0')
+			break ;
+		tmp2 = ft_strjoin(ft_strdup(info->line), " ");
+		tmp = ft_strjoin(tmp, tmp2);
+		ft_strdel(&tmp2);
+		ft_strdel(&info->line);
+	}
+	info->links = ft_strsplit(tmp, ' ');
+	ft_strdel(&tmp);
+}
+
+void	init_result_list(t_graphics *info, char **arr)
+{
+	int		size;
+	int		i;
+
+	size = 0;
+	i = 0;
+	while (arr[size])
+		size++;
+	if (!(info->result = (char***)malloc(sizeof(char**) * size + 1)))
+		exit(EXIT_FAILURE);
+	if (!(info->ant_moves = (double***)malloc(sizeof(double**) * size)))
+		exit(EXIT_FAILURE);
+	while (arr[i])
+	{
+		info->result[i] = ft_strsplit(arr[i], ' ');
+		i++;
+	}
+	info->result[i] = NULL;
+}
+
+void	parse_result(t_graphics *info)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp2 = ft_strnew(0);
+	while (get_next_line(0, &info->line) > 0)
+	{
+		if (info->line[0] == '\0')
+			break ;
+		if (info->line[0] == 'L' && ft_strchr(info->line, ' '))
+		{
+			if (tmp2[0] == '\0')
+				tmp2 = ft_strjoin(info->line, "!");
+			else
+			{
+				tmp = ft_strjoin(tmp2, info->line);
+				ft_strdel(&tmp2);
+				tmp2 = ft_strjoin(tmp, "!");
+				ft_strdel(&tmp);
+			}
+		}
+	}
+	tmp = ft_strsub(tmp2, 0, ft_strlen(tmp2) - 2);
+	ft_strdel(&tmp2);
+	init_result_list(info, ft_strsplit(tmp, '!'));
+	ft_strdel(&tmp);
 }

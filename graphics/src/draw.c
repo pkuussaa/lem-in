@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 13:01:20 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/03 16:53:53 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/05 14:06:24 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,8 @@ void	circle_drawing_algorithm(int radius, t_graphics *info, t_room *room, int ch
 	}
 }
 
-void	draw_circles(t_graphics *info, t_room *room)
+void	draw_circles(t_graphics *info, t_room *room, int radius)
 {
-	int		radius;
-
-	radius = 20;
 	display_circle(info, room, 0, radius);
 	if (ft_strcmp(room->name, info->start) == 0 || ft_strcmp(room->name, info->end) == 0)
 		while (radius > 0)
@@ -77,7 +74,7 @@ void	draw_circles(t_graphics *info, t_room *room)
 	else
 		circle_drawing_algorithm(radius, info, room, 0);
 	if (room->next)
-		draw_circles(info, room->next);
+		draw_circles(info, room->next, 20);
 	else
 		mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
 }

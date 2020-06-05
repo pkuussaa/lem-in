@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   result.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 15:17:55 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/13 17:02:33 by marvin           ###   ########.fr       */
+/*   Updated: 2020/06/04 13:38:11 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		get_next_move(char **arr, char *name, int i)
 	return (i);
 }
 
-void	print_moves(char **arr, int i)
+/*void	print_moves(char **arr, int i)
 {
 	while (arr[i])
 	{
@@ -109,7 +109,7 @@ void	print_moves(char **arr, int i)
 			break ;
 		i++;
 	}
-}
+}*/
 
 void	optimizate_paths_to_use(t_lemin *lemin, t_room *room)
 {
@@ -189,7 +189,6 @@ void	optimizate_paths_to_use(t_lemin *lemin, t_room *room)
 			//ft_printf("%s %d\n", moves[i], i);
 		}
 	}
-	free(lemin->paths);
 	lemin->paths = moves;
-	print_moves(lemin->paths, 0);
+	//print_moves(lemin->paths, 0);
 }

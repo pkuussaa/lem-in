@@ -6,11 +6,31 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 12:41:13 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/03 16:32:12 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/05 16:00:57 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/graphics.h"
+
+t_ants	**init_ants(t_graphics *info)
+{
+	t_ants	**tmp;
+	int		i;
+
+	i = 0;
+	if (!(tmp = (t_ants **)malloc(sizeof(t_ants *) * info->ants + 1)))
+		exit(EXIT_FAILURE);
+	while (i < info->ants)
+	{
+		if (!(tmp[i] = (t_ants *)malloc(sizeof(t_ants))))
+			exit(EXIT_FAILURE);
+		tmp[i]->name = i;
+		tmp[i]->room_name = ft_strdup(info->start);
+		i++;
+	}
+	tmp[i] = NULL;
+	return (tmp);
+}
 
 t_room	*find_room(t_room *room, char *name)
 {
@@ -26,10 +46,31 @@ t_room	*find_room(t_room *room, char *name)
 	return (NULL);
 }
 
+double		*init_list_int(double x, double y)
+{
+	double		*list;
+
+	if (!(list = (double*)malloc(sizeof(double) * 2)))
+		exit(EXIT_FAILURE);
+	list[0] = x;
+	list[1] = y;
+	return (list);
+}
+
+int		handle_loop(void *param)
+{
+	t_graphics *info;
+	int i = 0;
+
+	info = (t_graphics*)param;
+	move_ants(info, info->ant);
+}
+
 int		main()
 {
 	t_graphics	*info;
 	t_room		*room;
+	t_ants		**ants;
 	char		*line;
 
 	if (!(info = (t_graphics*)malloc(sizeof(t_graphics))))
@@ -40,10 +81,18 @@ int		main()
 	info->data_addr = mlx_get_data_addr(info->img, &(info->bits_per_pixel),
 				&(info->size_line), &(info->endian));
 	//draw_background(info);
+	info->index = 0;
 	number_of_ants(info);
 	room = parse_rooms(info, room);
+	info->room = room;
+	parse_links(info, room);
 	result_rooms(info, room);
-	draw_circles(info, room);
+	ants = init_ants(info);
+	info->ant = ants;
+	parse_result(info);
+	draw_circles(info, room, 20);
+	draw_links(info, room);
+	mlx_loop_hook(info->mlx, handle_loop, info);
 	mlx_loop(info->mlx);
 	return (0);
 }
