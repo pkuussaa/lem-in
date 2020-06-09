@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 13:01:20 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/05 14:06:24 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/09 19:14:35 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	display_circle(t_graphics *info, t_room *room, int x, int y)
 	int offset;
 
 	image = (int*)(info->data_addr);
-	color = room->result == 1 ? 0X23CD21 : 0XFFFFFF;
+	if (info->stop == 1)
+		color = room->result == 1 ? 0X23CD21 : 0XFFFFFF;
+	else
+		color = 0XFFFFFF;
 	color = ft_strcmp(room->name, info->start) == 0 ? 0XCD1FBA: color;
 	color = ft_strcmp(room->name, info->end) == 0 ? 0XC4CC19: color;
 	offset = room->x + (room->y * 1500);

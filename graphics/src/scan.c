@@ -6,18 +6,20 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/03 12:07:16 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/03 15:55:03 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/09 19:13:13 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/graphics.h"
 
-void	scan_paths(t_graphics *info, t_room *room, t_room *tmp, int check, int index)
+int		scan_paths(t_graphics *info, t_room *room, t_room *tmp)
 {
 	int		radius;
 	int		x;
 	int		y;
 	int		dp;
+	static int check;
+	static int index;
 
 	radius = 22;
 	x = 0;
@@ -33,43 +35,56 @@ void	scan_paths(t_graphics *info, t_room *room, t_room *tmp, int check, int inde
 		}
 		else
 			dp = dp + 4 * x + 6;
-		if (check == 0)
+		if (check == 3)
 		{
 			mlx_pixel_put(info->mlx, info->ptr, room->x + x, room->y + y, 0X39B1B6);
 			mlx_pixel_put(info->mlx, info->ptr, room->x + x, room->y + y - 1, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x + x, room->y + y - 2, 0X39B1B6);
 			mlx_pixel_put(info->mlx, info->ptr, room->x - x, room->y - y, 0X39B1B6);
 			mlx_pixel_put(info->mlx, info->ptr, room->x - x, room->y - y + 1, 0X39B1B6);
-		}
-		if (check == 1)
-		{
-			mlx_pixel_put(info->mlx, info->ptr, room->x - x, room->y + y, 0X39B1B6);
-			mlx_pixel_put(info->mlx, info->ptr, room->x - x, room->y + y - 1, 0X39B1B6);
-			mlx_pixel_put(info->mlx, info->ptr, room->x + x, room->y - y, 0X39B1B6);
-			mlx_pixel_put(info->mlx, info->ptr, room->x + x, room->y - y + 1, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x - x, room->y - y + 2, 0X39B1B6);
 		}
 		if (check == 2)
 		{
+			mlx_pixel_put(info->mlx, info->ptr, room->x - x, room->y + y, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x - x, room->y + y - 1, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x - x, room->y + y - 2, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x + x, room->y - y, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x + x, room->y - y + 1, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x + x, room->y - y + 2, 0X39B1B6);
+		}
+		if (check == 0)
+		{
 			mlx_pixel_put(info->mlx, info->ptr, room->x + y, room->y + x, 0X39B1B6);
 			mlx_pixel_put(info->mlx, info->ptr, room->x + y, room->y + x - 1, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x + y, room->y + x - 2, 0X39B1B6);
 			mlx_pixel_put(info->mlx, info->ptr, room->x - y, room->y - x, 0X39B1B6);
 			mlx_pixel_put(info->mlx, info->ptr, room->x - y, room->y - x + 1, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x - y, room->y - x + 2, 0X39B1B6);
 		}
-		if (check == 3)
+		if (check == 1)
 		{
 			mlx_pixel_put(info->mlx, info->ptr, room->x - y, room->y + x, 0X39B1B6);
 			mlx_pixel_put(info->mlx, info->ptr, room->x - y, room->y + x - 1, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x - y, room->y + x - 2, 0X39B1B6);
 			mlx_pixel_put(info->mlx, info->ptr, room->x + y, room->y - x, 0X39B1B6);
 			mlx_pixel_put(info->mlx, info->ptr, room->x + y, room->y - x + 1, 0X39B1B6);
+			mlx_pixel_put(info->mlx, info->ptr, room->x + y, room->y - x + 2, 0X39B1B6);
 		}
 	}
 	if (room->next)
-		scan_paths(info, room->next, tmp, check, index);
-	else if (index < 20)
+		scan_paths(info, room->next, tmp);
+	else
 	{
-		if (check == 3)
+		x = 0;
+		while (x < 75000000)
+			x++;
+		check++;
+		index++;
+		if (check == 4)
 			check = 0;
-		mlx_clear_window(info->mlx, info->ptr);
-		mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
-		scan_paths(info, tmp, tmp, check + 1, index + 1);
 	}
+	if (index == 50)
+		return (1);
+	return (0);
 }

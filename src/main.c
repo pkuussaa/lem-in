@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/17 13:51:16 by marvin           ###   ########.fr       */
+/*   Updated: 2020/06/09 18:16:13 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exit_error()
 {
-	ft_putendl("ERROR\n");
+	ft_putendl("ERROR");
 	exit(EXIT_FAILURE);
 }
 
@@ -23,6 +23,7 @@ void	print_results(char **arr)
 	int		y;
 
 	y = 0;
+	ft_printf("\n");
 	while (arr[y])
 	{
 		if (arr[y][0] == '\0')

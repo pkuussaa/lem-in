@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 12:41:13 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/05 16:00:57 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/09 19:43:55 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_ants	**init_ants(t_graphics *info)
 	{
 		if (!(tmp[i] = (t_ants *)malloc(sizeof(t_ants))))
 			exit(EXIT_FAILURE);
-		tmp[i]->name = i;
+		tmp[i]->name = i + 1;
 		tmp[i]->room_name = ft_strdup(info->start);
 		i++;
 	}
@@ -57,13 +57,106 @@ double		*init_list_int(double x, double y)
 	return (list);
 }
 
+int		loop_and_draw(t_graphics *info, double ****arr, int size)
+{
+	int			y;
+	static int	i;
+	static int	z;
+	int			count;
+
+	y = 0;
+	count = 0;
+	while (y < size)
+	{
+		if (i < info->indexes[z][y])
+			draw_ant(info, init_list_int(arr[z][y][0][i], arr[z][y][1][i]));
+		else
+			count++;
+		y++;
+	}
+	if (count == size)
+	{
+		z++;
+		i = 0;
+		return (1);
+	}
+	i += 1;
+	return (0);
+}
+
 int		handle_loop(void *param)
 {
-	t_graphics *info;
-	int i = 0;
+	t_graphics	*info;
+	static int	y;
+	int			i;
+	int			x;
+	double		***arr;
 
 	info = (t_graphics*)param;
-	move_ants(info, info->ant);
+	i = 0;
+	if (info->stop == 0)
+	{
+		mlx_clear_window(info->mlx, info->ptr);
+		mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
+		draw_links(info, info->room);
+		mlx_string_put(info->mlx, info->ptr, 649, 399, 0X0C87D5, "S C A N N I N G . . .");
+		mlx_string_put(info->mlx, info->ptr, 650, 400, 0XC4CC19, "S C A N N I N G . . .");
+		if (scan_paths(info, info->room, info->room) == 1)
+		{
+			info->stop = 1;
+			draw_circles(info, info->room, 20);
+		}
+	}
+	if (info->stop == 1)
+	{
+		mlx_clear_window(info->mlx, info->ptr);
+		mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
+		draw_links(info, info->room);
+		if (loop_and_draw(info, info->paths, info->size[y]) == 1 && y < info->loop)
+			y++;
+		if (y == info->loop)
+			info->stop = 2;
+	}
+	return (0);
+}
+
+void	init_result_array(t_graphics *info)
+{
+	int		i;
+	int		y;
+	int		x;
+
+	y = 0;
+	while (info->result[y])
+		y++;
+	info->loop = y;
+	if (!(info->indexes = (int**)malloc(sizeof(int*) * y)))
+			exit(EXIT_FAILURE);
+	if (!(info->paths = (double****)malloc(sizeof(double***) * y)))
+			exit(EXIT_FAILURE);
+	if (!(info->size = (int*)malloc(sizeof(int) * y)))
+		exit(EXIT_FAILURE);
+	y = 0;
+	while (info->result[y])
+	{
+		i = 0;
+		x = 0;
+		while (info->result[y][i])
+			i++;
+		if (!(info->paths[y] = (double***)malloc(sizeof(double**) * i)))
+			exit(EXIT_FAILURE);
+		info->size[y] = i;
+		if (!(info->indexes[y] = (int*)malloc(sizeof(int) * i)))
+			exit(EXIT_FAILURE);
+		info->y = y;
+		while (x < i)
+		{
+			info->index = x;
+			info->paths[y][x] = moving_algorithm(info, info->ant_moves[y][x]);
+			x++;
+		}
+		y++;
+	}
 }
 
 int		main()
@@ -80,7 +173,7 @@ int		main()
 	info->img = mlx_new_image(info->mlx, 1500, 800);
 	info->data_addr = mlx_get_data_addr(info->img, &(info->bits_per_pixel),
 				&(info->size_line), &(info->endian));
-	//draw_background(info);
+	info->stop = -1;
 	info->index = 0;
 	number_of_ants(info);
 	room = parse_rooms(info, room);
@@ -92,6 +185,8 @@ int		main()
 	parse_result(info);
 	draw_circles(info, room, 20);
 	draw_links(info, room);
+	move_ants(info, info->ant);
+	init_result_array(info);
 	mlx_loop_hook(info->mlx, handle_loop, info);
 	mlx_loop(info->mlx);
 	return (0);
