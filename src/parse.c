@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyrykuussaari <pyrykuussaari@student.42    +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/09 15:24:45 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/03/25 13:37:08 by pyrykuussaa      ###   ########.fr       */
+/*   Created: 2020/06/10 12:22:47 by pkuussaa          #+#    #+#             */
+/*   Updated: 2020/06/10 15:03:13 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,25 @@ t_room	*add_room(t_lemin *lemin, t_room *rooms, char *line)
 
 t_room	*parse_rooms(t_lemin *lemin, t_room *room)
 {
-	int		start_end;
-
-	start_end = 0;
 	while (get_next_line(0, &lemin->line) > 0)
 	{
 		ft_printf("%s\n", lemin->line);
 		if (!ft_strchr(lemin->line, ' ') && lemin->line[0] != '#')
 			break ;
 		if (ft_strcmp(lemin->line, "##start") == 0)
-			start_end = 1;
+			lemin->start_end = 1;
 		if (ft_strcmp(lemin->line, "##end") == 0)
-			start_end = 2;
-		/*start_end = ft_strcmp(lemin->line, "##start") == 0 ? 1 : 0;
-		start_end = ft_strcmp(lemin->line, "##end") == 0 ? 2 : 0;*/
+			lemin->start_end = 2;
 		if (lemin->line[0] != '#')
 		{
 			room = add_room(lemin, room, lemin->line);
-			if (start_end == 1)
-				lemin->start = ft_strsub(lemin->line, 0, ft_strchr(lemin->line, ' ') - lemin->line);
-			else if (start_end == 2)
-				lemin->end = ft_strsub(lemin->line, 0, ft_strchr(lemin->line, ' ') - lemin->line);
-			start_end = 0;
+			if (lemin->start_end == 1)
+				lemin->start = ft_strsub(lemin->line, 0,
+				ft_strchr(lemin->line, ' ') - lemin->line);
+			else if (lemin->start_end == 2)
+				lemin->end = ft_strsub(lemin->line, 0,
+				ft_strchr(lemin->line, ' ') - lemin->line);
+			lemin->start_end = 0;
 		}
 		ft_strdel(&lemin->line);
 	}
@@ -92,7 +89,7 @@ char	**init_result_paths(t_lemin *lemin, char **arr)
 	int		i;
 
 	i = 0;
-	if(!(arr = (char**)malloc(sizeof(char*) * lemin->rooms + 1)))
+	if (!(arr = (char**)malloc(sizeof(char*) * lemin->rooms + 1)))
 		exit_error();
 	while (i < lemin->rooms)
 	{
@@ -119,7 +116,7 @@ t_room	*parse_links(t_lemin *lemin, t_room *room)
 			links = ft_strsplit(lemin->line, '-');
 			room = link_rooms(room, links[0], links[1]);
 			room = link_rooms(room, links[1], links[0]);
-			free(links);
+			free_2d_array(links);
 		}
 		ft_strdel(&lemin->line);
 	}

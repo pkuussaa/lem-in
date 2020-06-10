@@ -6,13 +6,13 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/09 18:16:13 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/10 15:49:31 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-void	exit_error()
+void	exit_error(void)
 {
 	ft_putendl("ERROR");
 	exit(EXIT_FAILURE);
@@ -36,9 +36,17 @@ void	print_results(char **arr)
 void	initialize(t_lemin *lemin)
 {
 	lemin->ants = 0;
+	lemin->start_end = 0;
+	lemin->i = 0;
+	lemin->i2 = 0;
+	lemin->current = 0;
+	lemin->count = 0;
+	lemin->count_ants = 1;
 	lemin->rooms = 0;
 	lemin->amount = 0;
 	lemin->length = 0;
+	lemin->tmp = NULL;
+	lemin->path_moves = NULL;
 	lemin->currentnode = NULL;
 	lemin->moves = NULL;
 	lemin->start = NULL;
@@ -61,6 +69,7 @@ int		main(void)
 	rooms = parse_rooms(lemin, rooms);
 	rooms = parse_links(lemin, rooms);
 	find_paths(lemin, rooms);
+
 	print_results(lemin->result_paths);
 	optimizate_paths_to_use(lemin, rooms);
 	init_result(lemin, rooms);

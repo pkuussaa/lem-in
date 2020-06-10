@@ -6,13 +6,13 @@
 #    By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 14:34:26 by pkuussaa          #+#    #+#              #
-#    Updated: 2020/06/09 19:16:48 by pkuussaa         ###   ########.fr        #
+#    Updated: 2020/06/10 14:37:38 by pkuussaa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILE = lem-in
 
-SRC = src/main.c src/parse.c src/save_paths.c src/result.c src/algorithm.c src/link_rooms.c src/go_through_tunnels.c get_next_line/get_next_line.c ft_printf/libftprintf.a
+SRC = src/main.c src/other.c src/parse.c src/navigate_moves.c src/free_memory.c src/queue.c src/help_functions.c src/save_paths.c src/result.c src/algorithm.c src/link_rooms.c src/go_through_tunnels.c get_next_line/get_next_line.c ft_printf/libftprintf.a
 
 INC = includes/lemin.h
 

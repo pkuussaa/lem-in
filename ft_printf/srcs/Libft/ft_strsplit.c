@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pkuussaa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 10:49:35 by pkuussaa          #+#    #+#             */
-/*   Updated: 2019/10/29 15:32:22 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/10 15:02:15 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static	size_t	count_delim(const char *s, char c)
 {
@@ -83,7 +84,6 @@ char			**ft_strsplit(char const *s, char c)
 		if ((s[i] == c && s[i - 1] != c) || (s[i] == c && s[i - 1] != c &&
 					s[i + 1] == '\0') || (s[i] != c && s[i + 1] == '\0'))
 		{
-			arr[a] = ft_strnew(d);
 			arr[a] = copy_string((char*)s, i, d, c);
 			d = 0;
 			a++;
