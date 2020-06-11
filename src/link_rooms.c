@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 16:37:17 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 15:03:15 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 15:02:05 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,24 @@ t_room	*find_room(t_room *room, char *name)
 			return (tmp);
 		tmp = tmp->next;
 	}
+	return (NULL);
+}
+
+t_room	*find_free(t_room *room, char *name)
+{
+	t_room *tmp;
+
+	tmp = room;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->name, name) == 0)
+		{
+			ft_strdel(&name);
+			return (tmp);
+		}
+		tmp = tmp->next;
+	}
+	ft_strdel(&name);
 	return (NULL);
 }
 

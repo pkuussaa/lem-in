@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 15:49:31 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 18:16:16 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ void	initialize(t_lemin *lemin)
 	lemin->amount = 0;
 	lemin->length = 0;
 	lemin->tmp = NULL;
+	lemin->tmp2 = NULL;
 	lemin->path_moves = NULL;
 	lemin->currentnode = NULL;
-	lemin->moves = NULL;
+	lemin->moves = ft_strnew(0);
 	lemin->start = NULL;
 	lemin->end = NULL;
 	lemin->paths = NULL;
@@ -69,7 +70,6 @@ int		main(void)
 	rooms = parse_rooms(lemin, rooms);
 	rooms = parse_links(lemin, rooms);
 	find_paths(lemin, rooms);
-
 	print_results(lemin->result_paths);
 	optimizate_paths_to_use(lemin, rooms);
 	init_result(lemin, rooms);

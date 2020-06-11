@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 14:36:58 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 15:02:20 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct			s_lemin
 	char				**paths;
 	char				*line;
 	char				*tmp;
+	char				*tmp2;
 	char				*start;
 	char				*end;
 }						t_lemin;
@@ -90,12 +91,14 @@ void					save_path(t_lemin *lemin, char *name, char *link_name);
 void					find_paths(t_lemin *lemin, t_room *room);
 void					exit_error(void);
 void					free_2d_array(char **arr);
+void					free_items(char **arr, int length);
 void					enqueue(t_queue *queue, char *value);
 
 t_room					*parse_rooms(t_lemin *lemin, t_room *room);
 t_room					*parse_links(t_lemin *lemin, t_room *room);
 t_room					*get_first_links(t_lemin *lemin, t_room *room);
 t_room					*find_room(t_room *room, char *name);
+t_room					*find_free(t_room *room, char *name);
 t_room					*link_rooms(t_room *room, char *src, char *dst);
 
 t_queue					*init_queue(t_queue *queue, t_lemin *lemin);

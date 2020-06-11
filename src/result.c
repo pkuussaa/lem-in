@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 15:17:55 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 14:25:58 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 16:15:43 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 void	init_optimization_variables(t_lemin *lemin, t_room *room)
 {
-	t_room	*temp;
-
 	lemin->count = get_path_count(lemin->result_paths);
 	lemin->path_moves = init_moves(lemin->path_moves, lemin->ants);
-	lemin->tmp = ft_strdup(get_first_path_node(lemin->result_paths[0]));
-	temp = find_room(room, get_first_path_node(lemin->result_paths[0]));
-	temp->count++;
+	lemin->tmp = get_first_path_node(lemin->result_paths[0]);
+	find_room(room, lemin->tmp)->count++;
+	ft_strdel(&lemin->path_moves[lemin->i2]);
 	lemin->path_moves[lemin->i2] =
 	display_format(lemin->tmp, ft_itoa(lemin->count_ants));
-	ft_strdel(&lemin->tmp);
 }
 
 void	optimization1(t_lemin *lemin, t_room *room)
@@ -36,14 +33,20 @@ void	optimization1(t_lemin *lemin, t_room *room)
 	lemin->count_ants++;
 	if (lemin->path_moves[lemin->i2][0] != '\0')
 	{
-		lemin->tmp = ft_strjoin(" ", lemin->tmp);
-		lemin->path_moves[lemin->i2] =
-		ft_strjoin(lemin->path_moves[lemin->i2], lemin->tmp);
+		lemin->tmp2 = ft_strjoin(" ", lemin->tmp);
+		ft_strdel(&lemin->tmp);
+		lemin->tmp = ft_strdup(lemin->path_moves[lemin->i2]);
+		ft_strdel(&lemin->path_moves[lemin->i2]);
+		lemin->path_moves[lemin->i2] = ft_strjoin(lemin->tmp, lemin->tmp2);
+		ft_strdel(&lemin->tmp2);
 	}
 	else
+	{
+		ft_strdel(&lemin->path_moves[lemin->i2]);
 		lemin->path_moves[lemin->i2] = ft_strdup(lemin->tmp);
+	}
 	ft_strdel(&lemin->tmp);
-	find_room(room, get_first_path_node(lemin->result_paths[
+	find_free(room, get_first_path_node(lemin->result_paths[
 	get_next_path(lemin->result_paths, lemin->current)]))->count++;
 	lemin->current = get_next_path(lemin->result_paths, lemin->current);
 }
@@ -57,14 +60,20 @@ void	optimization2(t_lemin *lemin, t_room *room)
 	lemin->count_ants++;
 	if (lemin->path_moves[lemin->i2][0] != '\0')
 	{
-		lemin->tmp = ft_strjoin(" ", lemin->tmp);
-		lemin->path_moves[lemin->i2] =
-		ft_strjoin(lemin->path_moves[lemin->i2], lemin->tmp);
+		lemin->tmp2 = ft_strjoin(" ", lemin->tmp);
+		ft_strdel(&lemin->tmp);
+		lemin->tmp = ft_strdup(lemin->path_moves[lemin->i2]);
+		ft_strdel(&lemin->path_moves[lemin->i2]);
+		lemin->path_moves[lemin->i2] = ft_strjoin(lemin->tmp, lemin->tmp2);
+		ft_strdel(&lemin->tmp2);
 	}
 	else
+	{
+		ft_strdel(&lemin->path_moves[lemin->i2]);
 		lemin->path_moves[lemin->i2] = ft_strdup(lemin->tmp);
+	}
 	ft_strdel(&lemin->tmp);
-	find_room(room, get_first_path_node(lemin->result_paths[0]))->count++;
+	find_free(room, get_first_path_node(lemin->result_paths[0]))->count++;
 	lemin->current = 0;
 }
 
@@ -77,13 +86,20 @@ void	optimization3(t_lemin *lemin, t_room *room)
 	lemin->count_ants++;
 	if (lemin->path_moves[lemin->i2][0] != '\0')
 	{
-		lemin->tmp = ft_strjoin(" ", lemin->tmp);
-		lemin->path_moves[lemin->i2] =
-		ft_strjoin(lemin->path_moves[lemin->i2], lemin->tmp);
+		lemin->tmp2 = ft_strjoin(" ", lemin->tmp);
+		ft_strdel(&lemin->tmp);
+		lemin->tmp = ft_strdup(lemin->path_moves[lemin->i2]);
+		ft_strdel(&lemin->path_moves[lemin->i2]);
+		lemin->path_moves[lemin->i2] = ft_strjoin(lemin->tmp, lemin->tmp2);
+		ft_strdel(&lemin->tmp2);
 	}
 	else
+	{
+		ft_strdel(&lemin->path_moves[lemin->i2]);
 		lemin->path_moves[lemin->i2] = ft_strdup(lemin->tmp);
-	find_room(room, get_first_path_node(
+	}
+	ft_strdel(&lemin->tmp);
+	find_free(room, get_first_path_node(
 	lemin->result_paths[lemin->current]))->count++;
 }
 
@@ -92,16 +108,16 @@ void	optimizate_paths_to_use(t_lemin *lemin, t_room *room)
 	init_optimization_variables(lemin, room);
 	while (lemin->count_ants < lemin->ants)
 	{
-		if (find_room(room, get_first_path_node(lemin->result_paths[lemin->
+		if (find_free(room, get_first_path_node(lemin->result_paths[lemin->
 		current]))->count + path_length(lemin->result_paths[lemin->current]) >
-		find_room(room, get_first_path_node(lemin->result_paths[get_next_path(
+		find_free(room, get_first_path_node(lemin->result_paths[get_next_path(
 		lemin->result_paths, lemin->current)]))->count + path_length(lemin->
 		result_paths[get_next_path(lemin->result_paths, lemin->current)]))
 			optimization1(lemin, room);
 		else if (ft_strcmp(lemin->result_paths[0], lemin->result_paths[lemin->
-		current]) != 0 && find_room(room, get_first_path_node(lemin->
+		current]) != 0 && find_free(room, get_first_path_node(lemin->
 		result_paths[lemin->current]))->count + path_length(lemin->result_paths[
-		lemin->current]) > find_room(room, get_first_path_node(lemin->
+		lemin->current]) > find_free(room, get_first_path_node(lemin->
 		result_paths[0]))->count + path_length(lemin->result_paths[0]))
 			optimization2(lemin, room);
 		else

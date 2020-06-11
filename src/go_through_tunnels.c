@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:41:20 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 13:18:51 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 17:11:55 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		check_hash(char **arr, int i)
 			return (1);
 		i++;
 	}
+	free_2d_array(arr);
 	return (0);
 }
 
@@ -48,7 +49,10 @@ char	*check_if_end(t_lemin *lemin, char *str)
 		}
 	}
 	if (check_hash(arr, 0))
+	{
+		ft_strdel(&str);
 		return (get_str(arr, 0));
+	}
 	return (str);
 }
 
@@ -56,7 +60,6 @@ char	*next_point(t_lemin *lemin, char *str, int length)
 {
 	int		x;
 	int		i[2];
-	char	*tmp;
 
 	i[0] = -1;
 	i[1] = 0;
@@ -83,7 +86,6 @@ char	*next_point(t_lemin *lemin, char *str, int length)
 
 char	*get_next_point(t_lemin *lemin, char *str)
 {
-	char	*result;
 	char	*tmp;
 	int		i[3];
 
@@ -99,21 +101,23 @@ char	*get_next_point(t_lemin *lemin, char *str)
 			i[1] = 0;
 			while (str[i[0] + 1 + i[1]] != ' ' && str[i[0] + 1 + i[1]] != '\0')
 				i[1]++;
-			ft_strcat(tmp, next_point(lemin, str + i[0] + 1, i[1]));
-			i[2] += ft_strlen(next_point(lemin, str + i[0] + 1, i[1]));
+			lemin->tmp = next_point(lemin, str + i[0] + 1, i[1]);
+			ft_strcat(tmp, lemin->tmp);
+			i[2] += ft_strlen(lemin->tmp);
+			ft_strdel(&lemin->tmp);
 			i[0] += i[1];
 			if (str[i[0]] == '\0')
 				break ;
 		}
 		i[2]++;
 	}
+	ft_strdel(&str);
 	return (tmp);
 }
 
 void	init_result(t_lemin *lemin, t_room *room)
 {
 	char	**result;
-	char	*tmp;
 	int		i;
 
 	if (!(result = (char**)malloc(sizeof(char*) * get_l(lemin->paths) * 2)))
@@ -125,10 +129,13 @@ void	init_result(t_lemin *lemin, t_room *room)
 	{
 		if (lemin->paths[i][0] == '\0')
 			break ;
-		tmp = ft_strdup(lemin->paths[i]);
-		tmp = ft_strjoin(tmp, " ");
-		result[i] = ft_strjoin(tmp, get_next_point(lemin, result[i - 1]));
-		ft_strdel(&tmp);
+		lemin->tmp = ft_strdup(lemin->paths[i]);
+		lemin->tmp2 = ft_strjoin(lemin->tmp, " ");
+		ft_strdel(&lemin->tmp);
+		lemin->tmp = get_next_point(lemin, result[i - 1]);
+		result[i] = ft_strjoin(lemin->tmp2, lemin->tmp);
+		ft_strdel(&lemin->tmp2);
+		ft_strdel(&lemin->tmp);
 		ft_printf("%s\n", result[i]);
 	}
 	while (result[i - 1][0] != '\0')
@@ -137,4 +144,5 @@ void	init_result(t_lemin *lemin, t_room *room)
 		ft_printf("%s\n", result[i]);
 		i++;
 	}
+	ft_strdel(&result[i - 1]);
 }

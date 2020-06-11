@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:44:39 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 14:23:10 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 14:22:12 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,19 @@ int		path_length(char *str)
 	i = 0;
 	while (arr[i])
 		i++;
+	free_2d_array(arr);
 	return (i - 2);
 }
 
 char	*get_first_path_node(char *str)
 {
 	char	**arr;
+	char	*tmp;
 
 	arr = ft_strsplit(str, '-');
-	return (arr[1]);
+	tmp = ft_strdup(arr[1]);
+	free_2d_array(arr);
+	return (tmp);
 }
 
 int		get_next_path(char **arr, int i)

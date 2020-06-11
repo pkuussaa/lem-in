@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:22:47 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 15:03:13 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 18:07:03 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,7 @@ char	**init_result_paths(t_lemin *lemin, char **arr)
 	if (!(arr = (char**)malloc(sizeof(char*) * lemin->rooms + 1)))
 		exit_error();
 	while (i < lemin->rooms)
-	{
-		arr[i] = ft_strnew(0);
 		i++;
-	}
 	arr[i] = NULL;
 	return (arr);
 }

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 17:20:02 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 12:36:08 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 18:15:19 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 int		add_to_result_paths(t_lemin *lemin, char *str)
 {
-	int		y;
+	static int	y;
 
-	y = 0;
-	while (lemin->result_paths[y])
-	{
-		if (lemin->result_paths[y][0] == '\0')
-			break ;
-		y++;
-	}
+	if (y > 0)
+		ft_strdel(&lemin->result_paths[y]);
 	lemin->result_paths[y] = ft_strdup(str);
+	lemin->result_paths[y + 1] = ft_strnew(0);
+	y += 1;
 	return (1);
 }
 
@@ -89,11 +86,13 @@ int		save_and_clear(t_lemin *lemin, t_room *room, int i)
 	char	**arr;
 	char	*str;
 
+	ft_strdel(&lemin->moves);
 	lemin->moves = ft_strdup(lemin->paths[i]);
-	free(lemin->paths);
+	free_2d_array(lemin->paths);
 	tmp = room;
 	if (check_end(lemin, lemin->moves) == 1)
 		add_to_result_paths(lemin, lemin->moves);
+	ft_printf("");
 	str = combine_paths(lemin);
 	arr = ft_strsplit(str, '-');
 	while (tmp)
@@ -102,5 +101,7 @@ int		save_and_clear(t_lemin *lemin, t_room *room, int i)
 			tmp->visited = 0;
 		tmp = tmp->next;
 	}
+	free_2d_array(arr);
+	ft_strdel(&str);
 	return (check_end(lemin, lemin->moves));
 }

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 14:25:43 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 14:25:53 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 15:09:10 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ char	*display_format(char *room, char *number)
 	ft_strdel(&number);
 	number = ft_strjoin(tmp, "-");
 	ft_strdel(&tmp);
-	return (ft_strjoin(number, room));
+	tmp = ft_strjoin(number, room);
+	ft_strdel(&number);
+	ft_strdel(&room);
+	return (tmp);
 }
 
 char	**init_moves(char **arr, int i)
@@ -56,5 +59,6 @@ int		get_next_move(char **arr, char *name, int i)
 		}
 		x++;
 	}
+	ft_strdel(&name);
 	return (i);
 }

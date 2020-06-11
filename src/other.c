@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:34:13 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/10 15:37:04 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 16:41:58 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,29 @@ int		get_l(char **arr)
 char	*get_str(char **arr, int i)
 {
 	char	*tmp;
+	char	*tmp2;
 
-	tmp = ft_strnew(0);
+	tmp2 = ft_strnew(0);
 	while (arr[i])
 	{
 		if (arr[i][0] != '#')
 		{
-			tmp = ft_strjoin(tmp, arr[i]);
+			tmp = ft_strjoin(tmp2, arr[i]);
+			ft_strdel(&tmp2);
+			tmp2 = ft_strdup(tmp);
+			ft_strdel(&tmp);
 			if (arr[i + 1] != NULL)
-				tmp = ft_strjoin(tmp, " ");
+			{
+				tmp = ft_strjoin(tmp2, " ");
+				ft_strdel(&tmp2);
+				tmp2 = ft_strdup(tmp);
+				ft_strdel(&tmp);
+			}
 		}
 		i++;
 	}
-	return (tmp);
+	free_2d_array(arr);
+	return (tmp2);
 }
 
 char	**init_array(t_lemin *lemin, char *name)
@@ -89,8 +99,12 @@ int		find_empty(t_lemin *lemin, char **str)
 	while (str[y])
 	{
 		if (ft_strcmp(str[y], tmp) == 0)
+		{
+			ft_strdel(&tmp);
 			return (y);
+		}
 		y++;
 	}
+	ft_strdel(&tmp);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 14:43:16 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/09 18:05:19 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/11 18:18:16 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int		move_ants(t_graphics *info, t_ants **ants)
 			arr[i] = get_draw_coordinates(handle_link(info->room, initialize_char_array(find_ant(ants,
 			get_ant(info->result[y][i]))->room_name, get_room_name(info->result[y][i])))); //ottaa antin roomin ja sen suraavan roomin lahto coordinaatit
 			find_ant(ants, get_ant(info->result[y][i]))->room_name = get_room_name(info->result[y][i]);
-			ft_printf("result: %s\n", info->result[y][i]); // POISTA
 			i++;
 		}
 		info->ant_moves[y] = arr;
