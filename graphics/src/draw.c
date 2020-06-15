@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 13:01:20 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/09 19:14:35 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/15 15:17:38 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	display_circle(t_graphics *info, t_room *room, int x, int y)
 {
-	int		*image;
-	int color;
-	int offset;
+	int	*image;
+	int	color;
+	int	offset;
 
 	image = (int*)(info->data_addr);
 	if (info->stop == 1)
 		color = room->result == 1 ? 0X23CD21 : 0XFFFFFF;
 	else
 		color = 0XFFFFFF;
-	color = ft_strcmp(room->name, info->start) == 0 ? 0XCD1FBA: color;
-	color = ft_strcmp(room->name, info->end) == 0 ? 0XC4CC19: color;
+	color = ft_strcmp(room->name, info->start) == 0 ? 0XCD1FBA : color;
+	color = ft_strcmp(room->name, info->end) == 0 ? 0XC4CC19 : color;
 	offset = room->x + (room->y * 1500);
 	image[(offset - (y * 1500)) + x] = color;
 	image[(offset - (y * 1500)) - x] = color;
@@ -36,7 +36,8 @@ void	display_circle(t_graphics *info, t_room *room, int x, int y)
 	image[(offset + (x * 1500)) - y] = color;
 }
 
-void	circle_drawing_algorithm(int radius, t_graphics *info, t_room *room, int check)
+void	circle_drawing_algorithm(int radius,
+		t_graphics *info, t_room *room, int check)
 {
 	int		x;
 	int		y;
@@ -67,7 +68,8 @@ void	circle_drawing_algorithm(int radius, t_graphics *info, t_room *room, int ch
 void	draw_circles(t_graphics *info, t_room *room, int radius)
 {
 	display_circle(info, room, 0, radius);
-	if (ft_strcmp(room->name, info->start) == 0 || ft_strcmp(room->name, info->end) == 0)
+	if (ft_strcmp(room->name, info->start) == 0 ||
+	ft_strcmp(room->name, info->end) == 0)
 		while (radius > 0)
 		{
 			display_circle(info, room, 0, radius);
@@ -82,95 +84,58 @@ void	draw_circles(t_graphics *info, t_room *room, int radius)
 		mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
 }
 
-/*void	draw_box(t_graphics *info, t_room *room)
+void	draw_box(t_graphics *info, int x, int y, int check)
 {
 	int		*image;
 	int		i;
 	int		counter;
 
-	ft_printf("%d %d\n", room->x, room->y);
-	i = room->x + (room->y * 1500);
+	i = x + (750 * y);
 	counter = 0;
-	image = (int*)(info->data_addr);
-	while (counter < 70)
+	image = (int*)(info->data_addr2);
+	while (counter < 140)
 	{
 		image[i] = 0XFFFFFF;
-		image[i + (1500 * 40)] = 0XFFFFFF;
+		image[i + (750 * 80)] = 0XFFFFFF;
 		counter++;
 		i++;
 	}
-	counter = 0;
-	while (counter < 40)
+	counter = -1;
+	while (++counter < 80)
 	{
 		image[i] = 0XFFFFFF;
-		image[i - 70] = 0XFFFFFF;
-		counter++;
-		i += 1500;
+		image[i - 140] = 0XFFFFFF;
+		i += 750;
 	}
-	if (room->next)
-		draw_box(info, room->next);
+	if (check == 0)
+		draw_box(info, 450, 200, 1);
 	else
-		mlx_put_image_to_window(info->mlx, info->ptr, info->img, 0, 0);
-}*/
+		mlx_put_image_to_window(info->mlx, info->ptr, info->img2, 375, 200);
+}
 
-void	draw_background(t_graphics *info)
+void	draw_start_box(t_graphics *info)
 {
-	int *image;
-	int i;
-	int counter;
-	int delim;
-	int range[4];
+	int	*image;
+	int	i;
 
-	info->color = 0X39140C;
-	ft_bzero(info->data_addr, 1500 * 800 * (info->bits_per_pixel / 8));
-	image = (int*)(info->data_addr);
+	ft_bzero(info->data_addr2, 750 * 400 * (info->bits_per_pixel2 / 8));
+	image = (int*)(info->data_addr2);
 	i = 0;
-	counter = 25;
-	delim = 0;
-	range[0] = 0;
-	range[1] = 30000;
-	range[2] = 30000;
-	range[3] = 60000;
-	while (i < 1500 * 800)
+	while (i < 750 * 400)
 	{
-		if (i >= range[0] && i <= range[1])
-		{
-			if (i % 1500 == 0)
-			{
-				delim = 0;
-				counter = 25;
-			}
-			image[i] = i % 1500 > delim && i % 1500 < counter ? 0X422924 : info->color;
-			if (i % 1500 > counter)
-			{
-				delim = counter + 25;
-				counter = counter + 50;
-			}
-		}
-		else if (i > range[1])
-		{
-			range[0]  += 60000;
-			range[1] += 60000;
-		}
-		if (i >= range[2] && i <= range[3])
-		{
-			if (i % 1500 == 0)
-			{
-				delim = 25;
-				counter = 50;
-			}
-			image[i] = i % 1500 > delim && i % 1500 < counter ? 0X43241E : info->color;
-			if (i % 1500 > counter)
-			{
-				delim = counter + 25;
-				counter = counter + 50;
-			}
-		}
-		else if (i > range[2])
-		{
-			range[2] += 60000;
-			range[3] += 60000;
-		}
+		if (i <= 7500 || i % 750 >= 740 || i % 750 <= 10 || i >= 292500)
+			image[i] = 0X3E3434;
+		else
+			image[i] = 0X1E2123;
 		i++;
 	}
+	draw_box(info, 150, 200, 0);
+	mlx_string_put(info->mlx, info->ptr, 570, 430, 0XFFFFFF, "START");
+	mlx_string_put(info->mlx, info->ptr, 875, 430, 0XFFFFFF, "EXIT");
+	mlx_string_put(info->mlx, info->ptr, 630, 250, 0XCD1FBA, "L  E  M");
+	mlx_string_put(info->mlx, info->ptr, 629, 249, 0XCD1FBA, "L  E  M");
+	mlx_string_put(info->mlx, info->ptr, 740, 270, 0X23CD21, "-");
+	mlx_string_put(info->mlx, info->ptr, 739, 269, 0X23CD21, "-");
+	mlx_string_put(info->mlx, info->ptr, 790, 290, 0XC4CC19, "I  N");
+	mlx_string_put(info->mlx, info->ptr, 789, 289, 0XC4CC19, "I  N");
 }

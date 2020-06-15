@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/11 15:02:20 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/15 16:44:29 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ char					**init_moves(char **arr, int i);
 
 void					init_result(t_lemin *lemin, t_room *room);
 void					optimizate_paths_to_use(t_lemin *lemin, t_room *room);
-void					print_visited(t_lemin *lemin, t_room *room, t_room *tmp, t_link *links);
+void					print_visited(t_lemin *lemin,
+						t_room *room, t_room *tmp, t_link *links);
 void					number_of_ants(t_lemin *lemin);
 void					save_path(t_lemin *lemin, char *name, char *link_name);
 void					find_paths(t_lemin *lemin, t_room *room);

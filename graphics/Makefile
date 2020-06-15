@@ -6,13 +6,13 @@
 #    By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/25 12:37:31 by pyrykuussaa       #+#    #+#              #
-#    Updated: 2020/06/09 13:03:02 by pkuussaa         ###   ########.fr        #
+#    Updated: 2020/06/15 16:21:09 by pkuussaa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILE = graphics
 
-SRC = src/main.c src/draw_move.c src/scan.c src/draw_ants.c src/move_ants.c src/events.c src/draw_links.c src/draw.c src/parse.c ../get_next_line/get_next_line.c ../ft_printf/libftprintf.a
+SRC = src/main.c src/draw_move.c src/scan.c src/init2.c src/parse_links.c src/line_drawing_algorithm.c src/init.c src/draw_ants.c src/move_ants.c src/events.c src/draw_links.c src/draw.c src/parse.c ../get_next_line/get_next_line.c ../ft_printf/libftprintf.a
 
 INC =  -I includes/graphics.h
 
