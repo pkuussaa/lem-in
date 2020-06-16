@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 14:58:04 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/16 13:46:10 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 16:38:43 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ void	number_of_ants(t_graphics *info)
 void	get_xy(t_room *room, char *src)
 {
 	char	**tmp;
+	int		i;
 
 	tmp = ft_strsplit(src, ' ');
+	while (tmp[i])
+		i++;
+	if (i != 2)
+		exit(EXIT_FAILURE);
 	room->x = ft_atoi(tmp[0]);
 	room->y = ft_atoi(tmp[1]);
 	room->result = 0;
@@ -78,17 +83,14 @@ t_room	*parse_rooms(t_graphics *info, t_room *room)
 			break ;
 		if (ft_strcmp(info->line, "##start") == 0)
 			start_end = 1;
+		if (ft_strcmp(info->line, "ERROR") == 0)
+			exit(EXIT_FAILURE);
 		if (ft_strcmp(info->line, "##end") == 0)
 			start_end = 2;
 		if (info->line[0] != '#')
 		{
 			room = add_room(info, room);
-			if (start_end == 1)
-				info->start = ft_strsub(info->line, 0,
-				ft_strchr(info->line, ' ') - info->line);
-			else if (start_end == 2)
-				info->end = ft_strsub(info->line, 0,
-				ft_strchr(info->line, ' ') - info->line);
+			parse_start_end(info, start_end);
 			start_end = 0;
 		}
 		ft_strdel(&info->line);
@@ -99,23 +101,27 @@ t_room	*parse_rooms(t_graphics *info, t_room *room)
 void	result_rooms(t_graphics *info, t_room *room)
 {
 	char	**tmp;
-	char	*tmp;
+	char	*tmp2;
 	int		i;
 
+	ft_strdel(&info->line);
 	while (get_next_line(0, &info->line) > 0)
 	{
 		if (info->line[0] == '\0')
 			break ;
 		if (ft_strncmp(info->line, "result:", 7) == 0)
 		{
-			tmp = ft_strsplit(ft_strsub(info->line, 8,
-			ft_strlen(info->line) - 8), '-');
+			tmp2 = ft_strsub(info->line, 8, ft_strlen(info->line) - 8);
+			tmp = ft_strsplit(tmp2, '-');
+			ft_strdel(&tmp2);
 			i = 0;
 			while (tmp[i])
 			{
 				find_room(room, tmp[i])->result = 1;
 				i++;
 			}
+			free_2d_array(tmp);
 		}
+		ft_strdel(&info->line);
 	}
 }

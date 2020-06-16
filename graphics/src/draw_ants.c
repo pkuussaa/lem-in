@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:58:45 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 13:37:13 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 15:52:29 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	draw_ant(t_graphics *info, double *list)
 
 	radius = 5;
 	if (list[0] == 0 || list[1] == 0)
+	{
+		free(list);
 		return ;
+	}
 	display_ant(list, 0, radius, info);
 	while (radius > 0)
 	{

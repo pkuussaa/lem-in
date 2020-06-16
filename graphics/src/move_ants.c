@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 14:43:16 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/15 16:17:35 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 16:02:59 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,24 @@
 
 int		get_ant(char *str)
 {
-	return (ft_atoi(ft_strsplit(str + 1, '-')[0]));
+	char	**arr;
+	int		i;
+
+	arr = ft_strsplit(str + 1, '-');
+	i = ft_atoi(arr[0]);
+	free_2d_array(arr);
+	return (i);
 }
 
 char	*get_room_name(char *str)
 {
-	return (ft_strsplit(str, '-')[1]);
+	char	**arr;
+	char	*tmp;
+
+	arr = ft_strsplit(str, '-');
+	tmp = ft_strdup(arr[1]);
+	free_2d_array(arr);
+	return (tmp);
 }
 
 t_ants	*find_ant(t_ants **ants, int name)

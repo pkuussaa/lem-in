@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 13:31:38 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:54:38 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	initialize(t_lemin *lemin)
 	lemin->rooms = 0;
 	lemin->amount = 0;
 	lemin->length = 0;
+	lemin->check_end = 0;
+	lemin->check_start = 0;
 	lemin->tmp = NULL;
 	lemin->tmp2 = NULL;
 	lemin->path_moves = NULL;

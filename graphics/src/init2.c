@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 16:07:15 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 13:12:54 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 14:24:22 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	**init_char(char *str, char *str2)
 		exit(EXIT_FAILURE);
 	arr[0] = ft_strdup(str);
 	arr[1] = ft_strdup(str2);
+	ft_strdel(&str2);
+	ft_strdel(&str);
 	arr[2] = NULL;
 	return (arr);
 }
@@ -74,5 +76,6 @@ void	init_result_list(t_graphics *info, char **arr)
 		info->result[i] = ft_strsplit(arr[i], ' ');
 		i++;
 	}
+	free_2d_array(arr);
 	info->result[i] = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 16:37:17 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/11 15:02:05 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:33:55 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,17 @@ t_room	*find_free(t_room *room, char *name)
 	return (NULL);
 }
 
+t_link	*loop_link(t_link *tmp_link, char *dst)
+{
+	while (tmp_link->next)
+	{
+		if (ft_strcmp(tmp_link->room_link->name, dst) == 0)
+			exit_error();
+		tmp_link = tmp_link->next;
+	}
+	return (tmp_link);
+}
+
 t_room	*link_rooms(t_room *room, char *src, char *dst)
 {
 	t_room	*tmp;
@@ -64,8 +75,7 @@ t_room	*link_rooms(t_room *room, char *src, char *dst)
 	else
 	{
 		tmp_link = tmp->links;
-		while (tmp_link->next)
-			tmp_link = tmp_link->next;
+		tmp_link = loop_link(tmp_link, dst);
 		tmp_link->next = new;
 	}
 	return (room);

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:22:47 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/11 18:07:03 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:45:07 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ t_room	*parse_rooms(t_lemin *lemin, t_room *room)
 		}
 		ft_strdel(&lemin->line);
 	}
+	if (lemin->start == NULL || lemin->end == NULL)
+		exit_error();
 	return (room);
 }
 
@@ -106,17 +108,20 @@ t_room	*parse_links(t_lemin *lemin, t_room *room)
 	while (get_next_line(0, &lemin->line) > 0)
 	{
 		ft_printf("%s\n", lemin->line);
-		if (!ft_strchr(lemin->line, '-') && lemin->line[0] != '#')
-			break ;
 		if (lemin->line[0] != '#')
 		{
+			if (!ft_strchr(lemin->line, '-'))
+				exit_error();
 			links = ft_strsplit(lemin->line, '-');
+			check_path(lemin, links);
 			room = link_rooms(room, links[0], links[1]);
 			room = link_rooms(room, links[1], links[0]);
 			free_2d_array(links);
 		}
 		ft_strdel(&lemin->line);
 	}
+	if (lemin->check_start == 0 || lemin->check_end == 0)
+		exit_error();
 	lemin->result_paths = init_result_paths(lemin, lemin->result_paths);
 	return (room);
 }

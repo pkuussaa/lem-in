@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:48:17 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/15 16:10:48 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 14:12:27 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ double	*handle_link(t_room *room, char **links)
 	arr[1] = tmp->y;
 	arr[2] = tmp2->x;
 	arr[3] = tmp2->y;
+	free_2d_array(links);
 	return (arr);
 }
 

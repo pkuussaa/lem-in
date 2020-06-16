@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 17:20:02 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/11 18:15:19 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 18:07:15 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		check_end(t_lemin *lemin, char *str)
 	int		i;
 
 	i = ft_strlen(str) - 1;
+	if (str[ft_strlen(str) - 1] == '-')
+		exit_error();
 	while (str[i] != '-' || i == 0)
 		i--;
 	if (ft_strcmp(str + i + 1, lemin->end) != 0)

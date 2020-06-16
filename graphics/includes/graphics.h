@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 12:44:35 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/16 13:42:06 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 16:38:56 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct			s_graphics
 	char				***result;
 	char				**links;
 	char				*line;
+	char				*tmp;
 	char				*start;
 	char				*end;
 	void				*mlx;
@@ -88,10 +89,12 @@ void					init_result_array(t_graphics *info);
 void					init_result_list(t_graphics *info, char **arr);
 void					bresenham_algorithm(t_graphics *info, double *arr);
 void					free_2d_array(char **arr);
+void					parse_start_end(t_graphics *info, int start_end);
 
 t_room					*parse_rooms(t_graphics *info, t_room *room);
 t_room					*find_room(t_room *room, char *name);
 
+char					*free_and_join(t_graphics *info, char *tmp, char *tmp2);
 char					**init_char(char *str, char *str2);
 
 int						key_press(int keycode, void *param);

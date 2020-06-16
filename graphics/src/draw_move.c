@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:42:48 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 13:11:06 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 16:09:32 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 int		count_alloc2(t_graphics *info, double *arr)
 {
-	double	x;
-	double	y;
+	double	xy[2];
 	int		check;
 	double	d;
 	int		i;
 
-	x = arr[2] - arr[0];
-	y = arr[3] - arr[1];
-	check = x < 0 ? -1 : 1;
-	x = x < 0 ? -x : x;
-	d = 2 * x - y;
+	xy[0] = arr[2] - arr[0];
+	xy[1] = arr[3] - arr[1];
+	check = xy[0] < 0 ? -1 : 1;
+	xy[0] = xy[0] < 0 ? -xy[0] : xy[0];
+	d = 2 * xy[0] - xy[1];
 	i = 0;
 	while (arr[1] < arr[3])
 	{
 		if (d > 0)
 		{
 			arr[0] += check;
-			d -= 2 * y;
+			d -= 2 * xy[1];
 		}
-		d += 2 * x;
+		d += 2 * xy[0];
 		arr[1]++;
 		i++;
 	}
 	info->indexes[info->y][info->index] = i;
+	free(arr);
 	return (i);
 }
 
@@ -71,30 +71,30 @@ double	**line_high1(t_graphics *info, double *arr, int j, int checker)
 
 int		count_alloc(t_graphics *info, double *arr)
 {
-	double	x;
-	double	y;
+	double	xy[2];
 	int		check;
 	double	d;
 	int		i;
 
-	x = arr[2] - arr[0];
-	y = arr[3] - arr[1];
-	check = y < 0 ? -1 : 1;
-	y = y < 0 ? -y : y;
-	d = (2 * y) - x;
+	xy[0] = arr[2] - arr[0];
+	xy[1] = arr[3] - arr[1];
+	check = xy[1] < 0 ? -1 : 1;
+	xy[1] = xy[1] < 0 ? -xy[1] : xy[1];
+	d = (2 * xy[1]) - xy[0];
 	i = 0;
 	while (arr[0] < arr[2])
 	{
 		if (d > 0)
 		{
 			arr[1] += check;
-			d -= 2 * x;
+			d -= 2 * xy[0];
 		}
-		d += 2 * y;
+		d += 2 * xy[1];
 		arr[0]++;
 		i++;
 	}
 	info->indexes[info->y][info->index] = i;
+	free(arr);
 	return (i);
 }
 

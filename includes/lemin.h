@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 13:30:27 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:45:19 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct			s_lemin
 	int					start_end;
 	int					i;
 	int					i2;
+	int					check_start;
+	int					check_end;
 	int					current;
 	int					count;
 	int					count_ants;
@@ -96,6 +98,7 @@ void					exit_error(void);
 void					free_2d_array(char **arr);
 void					free_items(char **arr, int length);
 void					enqueue(t_queue *queue, char *value);
+void					check_path(t_lemin *lemin, char **links);
 
 t_room					*parse_rooms(t_lemin *lemin, t_room *room);
 t_room					*parse_links(t_lemin *lemin, t_room *room);

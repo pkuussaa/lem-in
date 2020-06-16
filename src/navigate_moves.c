@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 14:25:43 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/11 15:09:10 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:44:51 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ int		get_next_move(char **arr, char *name, int i)
 	}
 	ft_strdel(&name);
 	return (i);
+}
+
+void	check_path(t_lemin *lemin, char **links)
+{
+	if (ft_strcmp(links[0], lemin->start) == 0 ||
+	ft_strcmp(links[1], lemin->start) == 0)
+		lemin->check_start = 1;
+	if (ft_strcmp(links[0], lemin->end) == 0 ||
+	ft_strcmp(links[1], lemin->end) == 0)
+		lemin->check_end = 1;
 }
