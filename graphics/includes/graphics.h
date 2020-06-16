@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 12:44:35 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/15 16:44:02 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 13:42:06 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_graphics
 	int					*size;
 	int					speed;
 	int					check;
+	int					checker;
 	int					loop;
 	int					i;
 	int					y;
@@ -86,6 +87,7 @@ void					init_info(t_graphics *info);
 void					init_result_array(t_graphics *info);
 void					init_result_list(t_graphics *info, char **arr);
 void					bresenham_algorithm(t_graphics *info, double *arr);
+void					free_2d_array(char **arr);
 
 t_room					*parse_rooms(t_graphics *info, t_room *room);
 t_room					*find_room(t_room *room, char *name);
@@ -100,7 +102,8 @@ int						move_ants(t_graphics *info, t_ants **ants);
 double					*get_coord(double *arr);
 double					*handle_link(t_room *room, char **links);
 double					*init_list_int(double x, double y);
-double					*init_arr(double *xy, double *arr, int check);
+double					*init_arr(t_graphics *info, double *xy,
+						double *arr, int check);
 double					*init_list(double start_x, double start_y, double end_x,
 													double end_y);
 double					**moving_algorithm(t_graphics *info, double *arr);

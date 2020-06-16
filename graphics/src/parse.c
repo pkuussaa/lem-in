@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 14:58:04 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/15 16:20:43 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 13:46:10 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	get_xy(t_room *room, char *src)
 	room->x = ft_atoi(tmp[0]);
 	room->y = ft_atoi(tmp[1]);
 	room->result = 0;
+	free_2d_array(tmp);
 }
 
 t_room	*add_room(t_graphics *info, t_room *rooms)
@@ -98,6 +99,7 @@ t_room	*parse_rooms(t_graphics *info, t_room *room)
 void	result_rooms(t_graphics *info, t_room *room)
 {
 	char	**tmp;
+	char	*tmp;
 	int		i;
 
 	while (get_next_line(0, &info->line) > 0)

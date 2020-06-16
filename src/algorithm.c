@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:35:10 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/11 17:35:53 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 12:30:37 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int		current_index(t_lemin *lemin, char *str)
 
 	y = 0;
 	i = 0;
-
 	while (lemin->paths[i])
 	{
 		arr = ft_strsplit(lemin->paths[i], '-');

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/15 16:44:29 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 13:30:27 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,10 @@ char					*init_str(t_lemin *lemin, char *str, char *str2);
 char					*cut_last_node(char *str);
 char					*get_first_path_node(char *str);
 char					*display_format(char *room, char *number);
+char					*get_next_point(t_lemin *lemin, char *str);
 char					**init_array(t_lemin *lemin, char *name);
 char					**init_moves(char **arr, int i);
+char					**free_and_init(t_lemin *lemin, char **result, int i);
 
 void					init_result(t_lemin *lemin, t_room *room);
 void					optimizate_paths_to_use(t_lemin *lemin, t_room *room);

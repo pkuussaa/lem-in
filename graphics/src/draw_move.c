@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:42:48 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/15 16:07:33 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 13:11:06 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ double	**line_high1(t_graphics *info, double *arr, int j, int checker)
 	int		i;
 
 	list = allocate_2d_int(list, j);
-	xy = init_arr(xy, arr, 2);
-	check = xy[0] < 0 ? -1 : 1;
+	xy = init_arr(info, xy, arr, 2);
 	i = checker == 1 ? j : 0;
 	while (arr[1] < arr[3])
 	{
@@ -58,7 +57,7 @@ double	**line_high1(t_graphics *info, double *arr, int j, int checker)
 		list[1][i] = arr[1];
 		if (xy[2] > 0)
 		{
-			arr[0] += check;
+			arr[0] += info->checker;
 			xy[2] -= 2 * xy[1];
 		}
 		xy[2] += 2 * xy[0];
@@ -101,14 +100,12 @@ int		count_alloc(t_graphics *info, double *arr)
 
 double	**line_low1(t_graphics *info, double *arr, int j, int checker)
 {
-	int		check;
 	double	*xy;
 	double	**list;
 	int		i;
 
 	list = allocate_2d_int(list, j);
-	xy = init_arr(xy, arr, 1);
-	check = xy[1] < 0 ? -1 : 1;
+	xy = init_arr(info, xy, arr, 1);
 	i = checker == 1 ? j : 0;
 	while (arr[0] < arr[2])
 	{
@@ -116,7 +113,7 @@ double	**line_low1(t_graphics *info, double *arr, int j, int checker)
 		list[1][i] = arr[1];
 		if (xy[2] > 0)
 		{
-			arr[1] += check;
+			arr[1] += info->checker;
 			xy[2] -= 2 * xy[0];
 		}
 		xy[2] += 2 * xy[1];

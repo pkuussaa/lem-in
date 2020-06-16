@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 16:07:15 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/15 16:19:02 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 13:12:54 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ double	**allocate_2d_int(double **list, int j)
 	return (list);
 }
 
-double	*init_arr(double *xy, double *arr, int check)
+double	*init_arr(t_graphics *info, double *xy, double *arr, int check)
 {
 	if (!(xy = (double*)malloc(sizeof(double) * 3)))
 		exit(EXIT_FAILURE);
@@ -31,11 +31,13 @@ double	*init_arr(double *xy, double *arr, int check)
 	xy[1] = arr[3] - arr[1];
 	if (check == 1)
 	{
+		info->checker = xy[1] < 0 ? -1 : 1;
 		xy[1] = xy[1] < 0 ? -xy[1] : xy[1];
 		xy[2] = (2 * xy[1]) - xy[0];
 	}
 	else
 	{
+		info->checker = xy[0] < 0 ? -1 : 1;
 		xy[0] = xy[0] < 0 ? -xy[0] : xy[0];
 		xy[2] = 2 * xy[0] - xy[1];
 	}

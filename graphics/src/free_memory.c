@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/10 14:35:08 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 13:29:12 by pkuussaa         ###   ########.fr       */
+/*   Created: 2020/06/16 13:41:15 by pkuussaa          #+#    #+#             */
+/*   Updated: 2020/06/16 13:41:45 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lemin.h"
+#include "../includes/graphics.h"
 
 void	free_2d_array(char **arr)
 {
@@ -23,30 +23,4 @@ void	free_2d_array(char **arr)
 		i++;
 	}
 	free(arr);
-}
-
-void	free_items(char **arr, int length)
-{
-	int i;
-
-	i = 0;
-	while (i < length)
-	{
-		ft_strdel(&arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
-char	**free_and_init(t_lemin *lemin, char **result, int i)
-{
-	lemin->tmp = ft_strdup(lemin->paths[i]);
-	lemin->tmp2 = ft_strjoin(lemin->tmp, " ");
-	ft_strdel(&lemin->tmp);
-	lemin->tmp = get_next_point(lemin, result[i - 1]);
-	result[i] = ft_strjoin(lemin->tmp2, lemin->tmp);
-	ft_strdel(&lemin->tmp2);
-	ft_strdel(&lemin->tmp);
-	ft_printf("%s\n", result[i]);
-	return (result);
 }

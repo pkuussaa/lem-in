@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:58:45 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/15 15:19:19 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/16 13:37:13 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ void	draw_ant(t_graphics *info, double *list)
 		ant_drawing_algorithm(list, radius, info);
 		radius--;
 	}
+	free(list);
 }
