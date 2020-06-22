@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 17:54:38 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/22 18:01:05 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int		main(void)
 	print_results(lemin->result_paths);
 	optimizate_paths_to_use(lemin, rooms);
 	init_result(lemin, rooms);
+	while(1);
 	return (0);
 }

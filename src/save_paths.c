@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 17:20:02 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 18:07:15 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/22 15:36:33 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int		check_end(t_lemin *lemin, char *str)
 	int		i;
 
 	i = ft_strlen(str) - 1;
-	if (str[ft_strlen(str) - 1] == '-')
-		exit_error();
 	while (str[i] != '-' || i == 0)
 		i--;
 	if (ft_strcmp(str + i + 1, lemin->end) != 0)
@@ -40,7 +38,8 @@ int		check_end(t_lemin *lemin, char *str)
 
 char	*combine_paths(t_lemin *lemin)
 {
-	char	*str;
+	char	*tmp;
+	char	*tmp2;
 	int		y;
 	int		count;
 	int		length;
@@ -51,19 +50,17 @@ char	*combine_paths(t_lemin *lemin)
 	while (lemin->result_paths[++count])
 		if (lemin->result_paths[count][0] == '\0')
 			break ;
-	while (++y < count)
-		length += ft_strlen(lemin->result_paths[y]) - 1;
-	if (!(str = (char*)malloc(sizeof(char) * length + count + 1)))
-		exit_error();
-	y = 0;
+	y = 1;
+	tmp = ft_strjoin(lemin->result_paths[0], "-");
 	while (y < count)
 	{
-		ft_strcat(str, lemin->result_paths[y]);
-		if (y + 1 != count)
-			ft_strcat(str, "-");
+		tmp2 = ft_strjoin(tmp, lemin->result_paths[y]);
+		free(tmp);
+		tmp = y+ 1 != count ? ft_strjoin(tmp2, "-") : ft_strdup(tmp2);
+		free(tmp2);
 		y++;
 	}
-	return (str);
+	return (tmp);
 }
 
 int		check_if_possible_paths(t_lemin *lemin, t_room *room)
@@ -88,13 +85,12 @@ int		save_and_clear(t_lemin *lemin, t_room *room, int i)
 	char	**arr;
 	char	*str;
 
-	ft_strdel(&lemin->moves);
+	free(lemin->moves);
 	lemin->moves = ft_strdup(lemin->paths[i]);
 	free_2d_array(lemin->paths);
 	tmp = room;
 	if (check_end(lemin, lemin->moves) == 1)
 		add_to_result_paths(lemin, lemin->moves);
-	ft_printf("");
 	str = combine_paths(lemin);
 	arr = ft_strsplit(str, '-');
 	while (tmp)
@@ -104,6 +100,6 @@ int		save_and_clear(t_lemin *lemin, t_room *room, int i)
 		tmp = tmp->next;
 	}
 	free_2d_array(arr);
-	ft_strdel(&str);
+	free(str);
 	return (check_end(lemin, lemin->moves));
 }

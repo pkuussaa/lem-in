@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:40:41 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/11 17:38:46 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/17 15:30:23 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,9 @@ char	*init_str(t_lemin *lemin, char *str, char *str2)
 	char	*tmp2;
 
 	tmp = ft_strjoin(str, str2);
-	ft_strdel(&str);
 	if (ft_strcmp(str2, lemin->end) == 0)
 		return (tmp);
 	tmp2 = ft_strjoin(tmp, "-");
-	ft_strdel(&tmp);
+	free(tmp);
 	return (tmp2);
 }

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:41:20 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 13:34:18 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/22 18:00:56 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ char	*check_if_end(t_lemin *lemin, char *str)
 				if (ft_strncmp(arr[i] + x + 1, lemin->end,
 				ft_strlen(lemin->end)) == 0)
 				{
-					ft_bzero(arr[i], ft_strlen(arr[i]));
-					arr[i] = ft_strcpy(arr[i], "#");
+					free(arr[i]);
+					arr[i] = ft_strdup("#");
 					break ;
 				}
 	}
 	if (check_hash(arr, 0))
 	{
-		ft_strdel(&str);
+		//ft_strdel(&str);
 		return (get_str(arr, 0));
 	}
 	return (str);
@@ -87,6 +87,8 @@ char	*get_next_point(t_lemin *lemin, char *str)
 	int		i[3];
 
 	str = check_if_end(lemin, str);
+	if (!str)
+		return(NULL);
 	i[0] = -1;
 	i[2] = 0;
 	tmp = ft_strnew(ft_strlen(str) * 2);
@@ -99,14 +101,14 @@ char	*get_next_point(t_lemin *lemin, char *str)
 			while (str[i[0] + 1 + i[1]] != ' ' && str[i[0] + 1 + i[1]] != '\0')
 				i[1]++;
 			lemin->tmp = next_point(lemin, str + i[0] + 1, i[1]);
-			ft_strcat(tmp, lemin->tmp);
+			tmp = ft_strcat(tmp, lemin->tmp);
 			i[2] += ft_strlen(lemin->tmp);
 			ft_strdel(&lemin->tmp);
 			i[0] += i[1];
 		}
 		i[2]++;
 	}
-	ft_strdel(&str);
+	//ft_strdel(&str);
 	return (tmp);
 }
 
@@ -129,7 +131,8 @@ void	init_result(t_lemin *lemin, t_room *room)
 	while (result[i - 1][0] != '\0')
 	{
 		result[i] = get_next_point(lemin, result[i - 1]);
-		ft_printf("%s\n", result[i]);
+		if (result[i][0] != '\0')
+			ft_printf("%s\n", result[i]);
 		i++;
 	}
 	ft_strdel(&result[i - 1]);

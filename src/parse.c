@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:22:47 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 17:45:07 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/22 15:53:50 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	number_of_ants(t_lemin *lemin)
 	int		i;
 
 	i = 0;
-	if (get_next_line(0, &line) < 1)
-		exit_error();
+	get_next_line(0, &line);
 	ft_printf("%s\n", line);
 	while (line[i])
 	{
