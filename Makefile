@@ -6,7 +6,7 @@
 #    By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 14:34:26 by pkuussaa          #+#    #+#              #
-#    Updated: 2020/06/16 18:09:20 by pkuussaa         ###   ########.fr        #
+#    Updated: 2020/06/24 14:01:52 by pkuussaa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,4 +44,4 @@ re: fclean all
 run:
 	rm -f info_file
 	touch info_file
-	./lem-in < maps/invalid/invalid_name.map > info_file | graphics/./graphics < info_file
+	./lem-in < info_fie > info_file | graphics/./graphics < info_file

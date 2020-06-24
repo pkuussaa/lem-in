@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:41:20 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/22 18:00:56 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/24 19:02:45 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*check_if_end(t_lemin *lemin, char *str)
 	}
 	if (check_hash(arr, 0))
 	{
-		//ft_strdel(&str);
+		ft_strdel(&str);
 		return (get_str(arr, 0));
 	}
 	return (str);
@@ -108,32 +108,39 @@ char	*get_next_point(t_lemin *lemin, char *str)
 		}
 		i[2]++;
 	}
-	//ft_strdel(&str);
+	ft_strdel(&str);
 	return (tmp);
 }
 
 void	init_result(t_lemin *lemin, t_room *room)
 {
 	char	**result;
+	char    *tmp;
+	char    *tmp2;
 	int		i;
-
-	if (!(result = (char**)malloc(sizeof(char*) * get_l(lemin->paths) * 2)))
+	if (!(result = (char**)malloc(sizeof(char*) * 3)))
 		exit_error();
+	i = 0;
 	result[0] = ft_strdup(lemin->paths[0]);
 	ft_printf("\n%s\n", result[0]);
-	i = 0;
+	result[2] = NULL;
 	while (lemin->paths[++i])
 	{
 		if (lemin->paths[i][0] == '\0')
 			break ;
 		result = free_and_init(lemin, result, i);
 	}
-	while (result[i - 1][0] != '\0')
+	tmp2 = ft_strdup(result[0]);
+	result[1] = ft_strnew(0);
+	free_2d_array(result);
+	while (tmp2[0] != '\0')
 	{
-		result[i] = get_next_point(lemin, result[i - 1]);
-		if (result[i][0] != '\0')
-			ft_printf("%s\n", result[i]);
+		tmp = get_next_point(lemin, tmp2);
+		if (tmp[0] != '\0')
+			ft_printf("%s\n", tmp);
 		i++;
+		tmp2 = ft_strdup(tmp);
+		free(tmp);
 	}
-	ft_strdel(&result[i - 1]);
+	ft_strdel(&tmp2);
 }

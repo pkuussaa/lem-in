@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/22 14:48:09 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/24 13:55:11 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef struct s_room	t_room;
 typedef struct s_link	t_link;
+typedef struct s_result	t_result;
 
 typedef struct			s_queue
 {
