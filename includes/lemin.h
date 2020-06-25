@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:31:59 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/24 13:55:11 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/25 14:20:15 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct			s_lemin
 {
 	int					ants;
 	int					rooms;
+	int					stdout;
 	int					start_end;
 	int					i;
 	int					i2;
@@ -86,7 +87,8 @@ char					*display_format(char *room, char *number);
 char					*get_next_point(t_lemin *lemin, char *str);
 char					**init_array(t_lemin *lemin, char *name);
 char					**init_moves(char **arr, int i);
-char					**free_and_init(t_lemin *lemin, char **result, int i);
+char					*free_and_init(t_lemin *lemin, char *tmp,
+						char *tmp2, int i);
 
 void					init_result(t_lemin *lemin, t_room *room);
 void					optimizate_paths_to_use(t_lemin *lemin, t_room *room);

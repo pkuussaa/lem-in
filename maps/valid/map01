@@ -1,10 +1,13 @@
+#test
 5
 ##end
-salee 700 500
+salee 700 200
 ##start
-on 100 500
+on 100 300
+#####################
 khyl 400 500
-nimii 400 800
+##command
+nimii 400 700
 # links
 on-khyl
 khyl-salee

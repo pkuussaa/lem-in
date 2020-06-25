@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:35:10 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/22 15:08:26 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/25 13:19:39 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,30 @@ int		current_index(t_lemin *lemin, char *str)
 	return (get_next_slot(lemin, str));
 }
 
+void	if_not_visited(t_lemin *lemin, t_queue *queue, t_link *links)
+{
+	char	*tmp;
+
+	if (lemin->length == 1)
+		lemin->i = current_index(lemin, lemin->currentnode);
+	tmp = ft_strdup(lemin->paths[lemin->i]);
+	free(lemin->paths[lemin->i]);
+	lemin->paths[lemin->i] = init_str(lemin,
+	tmp, links->room_link->name);
+	ft_strdel(&tmp);
+	links->room_link->visited = 1;
+	enqueue(queue, links->room_link->name);
+}
+
 int		loop_links(t_lemin *lemin, t_queue *queue, t_room *room)
 {
 	t_link	*links;
-	char	*tmp;
 
 	links = find_room(room, lemin->currentnode)->links;
 	while (links)
 	{
 		if (links->room_link->visited == 0)
-		{
-			if (lemin->length == 1)
-				lemin->i = current_index(lemin, lemin->currentnode);
-			tmp = ft_strdup(lemin->paths[lemin->i]);
-			free(lemin->paths[lemin->i]);
-			lemin->paths[lemin->i] = init_str(lemin,
-			tmp, links->room_link->name);
-			ft_strdel(&tmp);
-			links->room_link->visited = 1;
-			enqueue(queue, links->room_link->name);
-		}
+			if_not_visited(lemin, queue, links);
 		if (ft_strcmp(links->room_link->name, lemin->end) == 0)
 		{
 			free(lemin->currentnode);

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 14:35:08 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/24 19:01:26 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/25 13:28:54 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ void	free_items(char **arr, int length)
 	free(arr);
 }
 
-char	**free_and_init(t_lemin *lemin, char **result, int i)
+char	*free_and_init(t_lemin *lemin, char *tmp, char *tmp2, int i)
 {
 	lemin->tmp = ft_strdup(lemin->paths[i]);
 	lemin->tmp2 = ft_strjoin(lemin->tmp, " ");
 	ft_strdel(&lemin->tmp);
-	lemin->tmp = get_next_point(lemin, result[0]);
-	result[1] = ft_strjoin(lemin->tmp2, lemin->tmp);
+	lemin->tmp = get_next_point(lemin, tmp);
+	tmp2 = ft_strjoin(lemin->tmp2, lemin->tmp);
 	ft_strdel(&lemin->tmp2);
 	ft_strdel(&lemin->tmp);
-	ft_printf("%s\n", result[1]);
-	result[0] = ft_strdup(result[1]);
-	ft_strdel(&result[1]);
-	return (result);
+	ft_printf("%s\n", tmp2);
+	tmp = ft_strdup(tmp2);
+	ft_strdel(&tmp2);
+	return (tmp);
 }

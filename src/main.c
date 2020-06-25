@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:40:32 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/24 19:01:29 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:11:02 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	print_results(char **arr)
 
 void	initialize(t_lemin *lemin)
 {
+	lemin->stdout = 0;
 	lemin->ants = 0;
 	lemin->start_end = 0;
 	lemin->i = 0;
@@ -75,6 +76,5 @@ int		main(void)
 	print_results(lemin->result_paths);
 	optimizate_paths_to_use(lemin, rooms);
 	init_result(lemin, rooms);
-	while(1);
 	return (0);
 }

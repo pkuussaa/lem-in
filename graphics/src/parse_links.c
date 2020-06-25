@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 16:20:24 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 16:51:08 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:30:28 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*init_link(t_graphics *info, char *tmp, char *tmp2)
 	tmp = ft_strdup(info->tmp);
 	ft_strdel(&info->tmp);
 	ft_strdel(&tmp2);
-	ft_strdel(&info->line);
 	return (tmp);
 }
 
@@ -52,6 +51,7 @@ void	parse_links(t_graphics *info, t_room *room)
 			exit(EXIT_FAILURE);
 		if (info->line[0] != '#')
 			tmp = init_link(info, tmp, tmp2);
+		ft_strdel(&info->line);
 	}
 	info->links = ft_strsplit(tmp, ' ');
 	ft_strdel(&tmp);
@@ -70,7 +70,7 @@ void	parse_result(t_graphics *info)
 			break ;
 		if (ft_strcmp(info->line, "ERROR") == 0)
 			exit(EXIT_FAILURE);
-		if (info->line[0] == 'L' && ft_strchr(info->line, ' '))
+		if (info->line[0] == 'L')
 			tmp2 = free_and_join(info, tmp, tmp2);
 		ft_strdel(&info->line);
 	}

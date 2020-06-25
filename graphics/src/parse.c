@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 14:58:04 by pyrykuussaa       #+#    #+#             */
-/*   Updated: 2020/06/16 16:38:43 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:13:44 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ void	number_of_ants(t_graphics *info)
 	int		i;
 
 	i = 0;
-	if (get_next_line(0, &line) < 1)
-		exit(EXIT_FAILURE);
+	while (get_next_line(0, &line) > 0)
+	{
+		if (line[0] != '#')
+			break ;
+		ft_strdel(&line);
+	}
 	while (line[i])
 	{
 		if (ft_isdigit(line[i]) == 0)

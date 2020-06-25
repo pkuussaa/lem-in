@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 16:37:17 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/16 17:33:55 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/25 14:42:59 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_room	*get_first_links(t_lemin *lemin, t_room *room)
 	if (!ft_strchr(lemin->line, '-') && lemin->line[0] != '#')
 		exit_error();
 	links = ft_strsplit(lemin->line, '-');
+	check_path(lemin, links);
 	room = link_rooms(room, links[0], links[1]);
 	room = link_rooms(room, links[1], links[0]);
 	free_2d_array(links);

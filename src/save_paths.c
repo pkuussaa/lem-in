@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 17:20:02 by pkuussaa          #+#    #+#             */
-/*   Updated: 2020/06/22 15:36:33 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2020/06/25 13:16:31 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*combine_paths(t_lemin *lemin)
 	{
 		tmp2 = ft_strjoin(tmp, lemin->result_paths[y]);
 		free(tmp);
-		tmp = y+ 1 != count ? ft_strjoin(tmp2, "-") : ft_strdup(tmp2);
+		tmp = y + 1 != count ? ft_strjoin(tmp2, "-") : ft_strdup(tmp2);
 		free(tmp2);
 		y++;
 	}
